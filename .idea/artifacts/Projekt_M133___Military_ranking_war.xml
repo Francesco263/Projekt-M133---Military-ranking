@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="Projekt M133 - Military ranking:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>Projekt M133 - Military ranking</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="Projekt_M133_Military_ranking-1.0.war">
+      <element id="artifact" artifact-name="Projekt M133 - Military ranking:war exploded" />
+    </root>
+  </artifact>
+</component>

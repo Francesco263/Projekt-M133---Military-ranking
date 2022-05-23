@@ -1,0 +1,265 @@
+{
+	"info": {
+		"_postman_id": "f7172978-d391-4d77-8193-109d51652e36",
+		"name": "Projekt M133 - Military ranking",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "0.1 Testservice",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/test/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"test",
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1.0 list all weapons",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"weapon",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1.1 read weapon",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/read?weaponName=AIM-9X",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"weapon",
+						"read"
+					],
+					"query": [
+						{
+							"key": "weaponName",
+							"value": "AIM-9X"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1.2 read weapon not found",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/read?weaponName=AIM-9",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"weapon",
+						"read"
+					],
+					"query": [
+						{
+							"key": "weaponName",
+							"value": "AIM-9"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.0 list all vehicles",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.1 read vehicle",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/read?vehicleName=F-22 Raptor",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"read"
+					],
+					"query": [
+						{
+							"key": "vehicleName",
+							"value": "F-22 Raptor"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.2 read vehicle not found",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/read?vehicleName=F-22 Rapto",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"read"
+					],
+					"query": [
+						{
+							"key": "vehicleName",
+							"value": "F-22 Rapto"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3.0 list all countries",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3.1 read country",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/read?name=America",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"read"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "America"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3.2 read country not found",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/read?name=Americ",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"read"
+					],
+					"query": [
+						{
+							"key": "name",
+							"value": "Americ"
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

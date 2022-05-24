@@ -170,6 +170,90 @@
 			"response": []
 		},
 		{
+			"name": "1.3 sortWeaponByName",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/sortList?sortBy=weaponName",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"weapon",
+						"sortList"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "weaponName"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1.4 sortWeaponByBattlepoints",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/sortList?sortBy=battlepoints",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"weapon",
+						"sortList"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "battlepoints"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "2.0 list all vehicles",
 			"event": [
 				{
@@ -299,6 +383,132 @@
 			"response": []
 		},
 		{
+			"name": "2.3 sort vehicle by name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/sortList?sortBy=vehicleName",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"sortList"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "vehicleName"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.4 sort vehicle by battlepoints",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/sortList?sortBy=battlepoints",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"sortList"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "battlepoints"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.5 sort vehicle by quantity",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/sortList?sortBy=quantity",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"sortList"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "quantity"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "3.0 list all countries",
 			"event": [
 				{
@@ -421,6 +631,90 @@
 						{
 							"key": "name",
 							"value": "Americ"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3.3 sort country by name",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/sortList?sortBy=name",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"sortList"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "name"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3.4 sort country by military power",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/sortList?sortBy=militaryPower",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"sortList"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "militaryPower"
 						}
 					]
 				}

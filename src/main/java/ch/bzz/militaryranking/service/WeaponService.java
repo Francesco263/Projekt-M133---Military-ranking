@@ -9,6 +9,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -55,4 +57,37 @@ public class WeaponService {
                 .entity(weapon)
                 .build();
     }
+
+    /**
+     * sorts the weapon list by battlepoints or weaponName
+     */
+    @GET
+    @Path("sortList")
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response sortWeapon(
+            @QueryParam("sortBy") String sort
+    ){
+        List<Weapon> weaponList = DataHandler.getInstance().readAllWeapons();
+        if(sort != null && sort.equals("battlepoints")){
+            Collections.sort(weaponList, new Comparator<Weapon>() {
+                @Override
+                public int compare(Weapon weapon, Weapon t1) {
+                    return weapon.getBattlepoints()-(t1.getBattlepoints());
+                }
+            });
+        }
+        else if (sort!= null && sort.equals("weaponName")){
+            Collections.sort(weaponList, new Comparator<Weapon>() {
+                @Override
+                public int compare(Weapon weapon, Weapon t1) {
+                    return weapon.getWeaponName().compareTo(t1.getWeaponName());
+                }
+            });
+        }
+        return Response
+                .status(200)
+                .entity(weaponList)
+                .build();
+    }
+
 }

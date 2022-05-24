@@ -1,196 +1,322 @@
 {
-	"id": "54567d0b-2098-403d-ad1b-29be98a15c39",
+	"id": "91dcc555-9816-4652-b00d-87303be47cce",
 	"name": "Projekt M133 - Military ranking",
-	"timestamp": "2022-05-23T10:17:49.101Z",
+	"timestamp": "2022-05-24T07:24:00.736Z",
 	"collection_id": "f7172978-d391-4d77-8193-109d51652e36",
 	"folder_id": 0,
 	"environment_id": "0",
-	"totalPass": 0,
+	"totalPass": 16,
 	"totalFail": 0,
 	"results": [
 		{
 			"id": "56632ef2-44c7-4829-a715-8d5bf629e2b6",
 			"name": "0.1 Testservice",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/test/test",
-			"time": 80,
+			"time": 48,
 			"responseCode": {
 				"code": 200,
 				"name": "OK"
 			},
-			"tests": {},
-			"testPassFailCounts": {},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
 			"times": [
-				80
+				48
 			],
 			"allTests": [
-				{}
+				{
+					"Status test": true
+				}
 			]
 		},
 		{
 			"id": "c1825b3a-daaf-4d89-a2a9-489ac3d73b8a",
 			"name": "1.0 list all weapons",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/list",
-			"time": 11,
+			"time": 7,
 			"responseCode": {
 				"code": 200,
 				"name": "OK"
 			},
-			"tests": {},
-			"testPassFailCounts": {},
+			"tests": {
+				"Status test": true,
+				"validate response": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
 			"times": [
-				11
+				7
 			],
 			"allTests": [
-				{}
+				{
+					"Status test": true,
+					"validate response": true
+				}
 			]
 		},
 		{
 			"id": "4f549b7b-ff63-498b-b0f9-01a260638dbc",
 			"name": "1.1 read weapon",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/read?weaponName=AIM-9X",
-			"time": 15,
+			"time": 6,
 			"responseCode": {
 				"code": 200,
 				"name": "OK"
 			},
-			"tests": {},
-			"testPassFailCounts": {},
+			"tests": {
+				"Status test": true,
+				"validate response": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
 			"times": [
-				15
+				6
 			],
 			"allTests": [
-				{}
+				{
+					"Status test": true,
+					"validate response": true
+				}
 			]
 		},
 		{
 			"id": "4afa12f5-1436-475d-89e0-fe126a545de3",
 			"name": "1.2 read weapon not found",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/read?weaponName=AIM-9",
-			"time": 10,
+			"time": 4,
 			"responseCode": {
-				"code": 200,
-				"name": "OK"
+				"code": 404,
+				"name": "Not Found"
 			},
-			"tests": {},
-			"testPassFailCounts": {},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
 			"times": [
-				10
+				4
 			],
 			"allTests": [
-				{}
+				{
+					"Status test": true
+				}
 			]
 		},
 		{
 			"id": "00697de5-d907-4847-9343-c014e314d9a8",
 			"name": "2.0 list all vehicles",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/list",
-			"time": 9,
+			"time": 5,
 			"responseCode": {
 				"code": 200,
 				"name": "OK"
 			},
-			"tests": {},
-			"testPassFailCounts": {},
+			"tests": {
+				"Status test": true,
+				"validate response": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
 			"times": [
-				9
+				5
 			],
 			"allTests": [
-				{}
+				{
+					"Status test": true,
+					"validate response": true
+				}
 			]
 		},
 		{
 			"id": "aeb138dc-2a48-4fa8-a4e6-2b62d0f450e0",
 			"name": "2.1 read vehicle",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/read?vehicleName=F-22%20Raptor",
-			"time": 12,
+			"time": 4,
 			"responseCode": {
 				"code": 200,
 				"name": "OK"
 			},
-			"tests": {},
-			"testPassFailCounts": {},
+			"tests": {
+				"Status test": true,
+				"validate response": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
 			"times": [
-				12
+				4
 			],
 			"allTests": [
-				{}
+				{
+					"Status test": true,
+					"validate response": true
+				}
 			]
 		},
 		{
 			"id": "815162ab-3562-4733-802d-35670304570f",
 			"name": "2.2 read vehicle not found",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/read?vehicleName=F-22%20Rapto",
-			"time": 9,
+			"time": 8,
 			"responseCode": {
-				"code": 200,
-				"name": "OK"
+				"code": 404,
+				"name": "Not Found"
 			},
-			"tests": {},
-			"testPassFailCounts": {},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
 			"times": [
-				9
+				8
 			],
 			"allTests": [
-				{}
+				{
+					"Status test": true
+				}
 			]
 		},
 		{
 			"id": "82497b42-bbb3-4b6a-ba20-2647a270de13",
 			"name": "3.0 list all countries",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/list",
-			"time": 6,
+			"time": 13,
 			"responseCode": {
 				"code": 200,
 				"name": "OK"
 			},
-			"tests": {},
-			"testPassFailCounts": {},
+			"tests": {
+				"Status test": true,
+				"validate response": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
 			"times": [
-				6
+				13
 			],
 			"allTests": [
-				{}
+				{
+					"Status test": true,
+					"validate response": true
+				}
 			]
 		},
 		{
 			"id": "113036a9-5dcb-4db0-a2cc-1df6193e1207",
 			"name": "3.1 read country",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/read?name=America",
-			"time": 13,
+			"time": 9,
 			"responseCode": {
 				"code": 200,
 				"name": "OK"
 			},
-			"tests": {},
-			"testPassFailCounts": {},
+			"tests": {
+				"Status test": true,
+				"validate response": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
 			"times": [
-				13
+				9
 			],
 			"allTests": [
-				{}
+				{
+					"Status test": true,
+					"validate response": true
+				}
 			]
 		},
 		{
 			"id": "5d2019bb-e188-44da-bc28-d5d23764cfa7",
 			"name": "3.2 read country not found",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/read?name=Americ",
-			"time": 5,
+			"time": 23,
 			"responseCode": {
-				"code": 200,
-				"name": "OK"
+				"code": 404,
+				"name": "Not Found"
 			},
-			"tests": {},
-			"testPassFailCounts": {},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
 			"times": [
-				5
+				23
 			],
 			"allTests": [
-				{}
+				{
+					"Status test": true
+				}
 			]
 		}
 	],
 	"count": 1,
-	"totalTime": 170,
+	"totalTime": 127,
 	"collection": {
 		"requests": [
 			{

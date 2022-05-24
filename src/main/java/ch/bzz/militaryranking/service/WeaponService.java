@@ -39,11 +39,19 @@ public class WeaponService {
     @Path("read")
     @Produces(MediaType.APPLICATION_JSON)
     public Response readWeapon(
-            @QueryParam("weaponName") String waffenName
+            @QueryParam("weaponName") String weaponName
     ){
-        Weapon weapon = DataHandler.getInstance().readWeaponByName(waffenName);
+        Weapon weapon = DataHandler.getInstance().readWeaponByName(weaponName);
+        int httpStatus;
+
+        if (weapon == null){
+            httpStatus = 404;
+        }
+        else{
+            httpStatus = 200;
+        }
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity(weapon)
                 .build();
     }

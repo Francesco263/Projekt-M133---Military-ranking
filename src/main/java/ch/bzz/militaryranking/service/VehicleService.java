@@ -41,8 +41,15 @@ public class VehicleService {
             @QueryParam("vehicleName") String fahrzeugName
     ){
         Vehicle vehicle = DataHandler.getInstance().readVehicleByName(fahrzeugName);
+        int httpStatus;
+        if (vehicle == null){
+            httpStatus = 404;
+        }
+        else{
+            httpStatus = 200;
+        }
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity(vehicle)
                 .build();
     }

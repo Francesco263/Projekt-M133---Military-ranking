@@ -41,8 +41,15 @@ public class CountryService {
             @QueryParam("name") String name
     ){
         Country country = DataHandler.getInstance().readCountryByName(name);
+        int httpStatus;
+        if (country == null){
+            httpStatus = 404;
+        }
+        else{
+            httpStatus = 200;
+        }
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity(country)
                 .build();
     }

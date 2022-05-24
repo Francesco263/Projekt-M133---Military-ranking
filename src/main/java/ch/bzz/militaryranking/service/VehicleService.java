@@ -91,9 +91,17 @@ public class VehicleService {
                 }
             });
         }
-        return Response
-                .status(200)
-                .entity(vehicleList)
-                .build();
+        if (sort.contains("vehicleName") || sort.contains("battlepoints") || sort.contains("quantity")){
+            return Response
+                    .status(200)
+                    .entity(vehicleList)
+                    .build();
+        }
+        else{
+            return Response
+                    .status(404)
+                    .entity(null)
+                    .build();
+        }
     }
 }

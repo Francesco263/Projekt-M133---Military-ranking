@@ -84,10 +84,19 @@ public class WeaponService {
                 }
             });
         }
-        return Response
-                .status(200)
-                .entity(weaponList)
-                .build();
+        if (sort.contains("weaponName") || sort.contains("battlepoints")){
+            return Response
+                    .status(200)
+                    .entity(weaponList)
+                    .build();
+        }
+        else{
+            return Response
+                    .status(404)
+                    .entity(null)
+                    .build();
+        }
     }
+
 
 }

@@ -83,9 +83,17 @@ public class CountryService {
                 }
             });
         }
-        return Response
-                .status(200)
-                .entity(countryList)
-                .build();
+        if (sort.contains("militaryPower") || sort.contains("name")){
+            return Response
+                    .status(200)
+                    .entity(countryList)
+                    .build();
+        }
+        else{
+            return Response
+                    .status(404)
+                    .entity(null)
+                    .build();
+        }
     }
 }

@@ -254,6 +254,48 @@
 			"response": []
 		},
 		{
+			"name": "1.5 sortBy not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/sortList?sortBy=battlepoint",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"weapon",
+						"sortList"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "battlepoint"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "2.0 list all vehicles",
 			"event": [
 				{
@@ -509,6 +551,47 @@
 			"response": []
 		},
 		{
+			"name": "2.6 sortBy not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/sortList?sortBy=battlepoint",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"sortList"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "battlepoint"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "3.0 list all countries",
 			"event": [
 				{
@@ -715,6 +798,48 @@
 						{
 							"key": "sortBy",
 							"value": "militaryPower"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3.5 sortBy not found",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/sortList?sortBy=",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"sortList"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": ""
 						}
 					]
 				}

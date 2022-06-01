@@ -2,12 +2,8 @@ package ch.bzz.militaryranking.service;
 
 import ch.bzz.militaryranking.data.DataHandler;
 import ch.bzz.militaryranking.model.Vehicle;
-import ch.bzz.militaryranking.model.Weapon;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collections;
@@ -27,7 +23,7 @@ public class VehicleService {
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listVehicle(){
-        List<Vehicle> vehicleList = DataHandler.getInstance().readAllVehicles();
+        List<Vehicle> vehicleList = DataHandler.readAllVehicles();
         return Response
                 .status(200)
                 .entity(vehicleList)
@@ -43,7 +39,7 @@ public class VehicleService {
     public Response readVehicle(
             @QueryParam("vehicleName") String fahrzeugName
     ){
-        Vehicle vehicle = DataHandler.getInstance().readVehicleByName(fahrzeugName);
+        Vehicle vehicle = DataHandler.readVehicleByName(fahrzeugName);
         int httpStatus;
         if (vehicle == null){
             httpStatus = 404;
@@ -66,7 +62,7 @@ public class VehicleService {
     public Response sortWeapon(
             @QueryParam("sortBy") String sort
     ){
-        List<Vehicle> vehicleList = DataHandler.getInstance().readAllVehicles();
+        List<Vehicle> vehicleList = DataHandler.readAllVehicles();
         if(sort != null && sort.equals("vehicleName")){
             Collections.sort(vehicleList, new Comparator<Vehicle>() {
                 @Override
@@ -104,4 +100,86 @@ public class VehicleService {
                     .build();
         }
     }
+
+    /**
+     * Inserts a new vehicle
+     * @param vehicleName the name
+     * @param quantity the quantity
+     * @param battlepoints the battlepoints of the unarmed vehicle
+     * @return Response
+     */
+    @POST
+    @Path("create")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response insertVehicle(
+            @FormParam("vehicleName") String vehicleName,
+            @FormParam("quantity") String quantity,
+            @FormParam("battlepoints") String battlepoints
+    ){
+        Vehicle vehicle = new Vehicle();
+        vehicle.setVehicleName(vehicleName);
+        vehicle.setQuantity(Integer.parseInt(quantity));
+        vehicle.setBattlepoints(Integer.parseInt(battlepoints));
+
+        DataHandler.insertVehicle(vehicle);
+        return Response
+                .status(200)
+                .entity("")
+                .build();
+    }
+
+    /**
+     * deletes a vehicle identified by its name
+     * @param vehicleName the key
+     * @return Response
+     */
+    @DELETE
+    @Path("delete")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response deleteVehicle(
+            @QueryParam("vehicleName") String vehicleName
+    ){
+        int httpStatus = 200;
+        if (!DataHandler.deleteVehicle(vehicleName)){
+            httpStatus = 410;
+        }
+        return Response
+                .status(httpStatus)
+                .entity("")
+                .build();
+    }
+
+    /**
+     * updates a new vehicle
+     * @param vehicleName the name
+     * @param quantity the quantity
+     * @param battlepoints the battlepoints
+     * @return Response
+     */
+    @POST
+    @Path("update")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response updateVehicle(
+            @FormParam("vehicleName") String vehicleName,
+            @FormParam("quantity") String quantity,
+            @FormParam("battlepoints") String battlepoints
+    ){
+        int httpStatus = 200;
+        Vehicle vehicle = DataHandler.readVehicleByName(vehicleName);
+        if (vehicle != null){
+            vehicle.setVehicleName(vehicleName);
+            vehicle.setQuantity(Integer.parseInt(quantity));
+            vehicle.setBattlepoints(Integer.parseInt(battlepoints));
+
+            DataHandler.updateVehicle();
+        }
+        else{
+            httpStatus = 404;
+        }
+        return Response
+                .status(httpStatus)
+                .entity("")
+                .build();
+    }
+
 }

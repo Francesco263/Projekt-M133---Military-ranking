@@ -4,9 +4,12 @@ import ch.bzz.militaryranking.model.Vehicle;
 import ch.bzz.militaryranking.model.Country;
 import ch.bzz.militaryranking.model.Weapon;
 import ch.bzz.militaryranking.service.Config;
+import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 
-import java.io.IOException;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -17,54 +20,34 @@ import java.util.List;
  */
 public class DataHandler {
     private static DataHandler instance = null;
-    private List<Country> countryList;
-    private List<Vehicle> vehicleList;
-    private List<Weapon> weaponList;
+    private static List<Country> countryList;
+    private static List<Vehicle> vehicleList;
+    private static List<Weapon> weaponList;
 
     /**
      * private constructor defeats instantiation
      */
-    private DataHandler() {
-        setCountryLists(new ArrayList<>());
-        readCountryJSON();
-
-        setVehicleList(new ArrayList<>());
-        readVehicleJSON();
-
-        setWeaponList(new ArrayList<>());
-        readWeaponJSON();
-
-    }
-
-    /**
-     * gets the only instance of this class
-     * @return
-     */
-    public static DataHandler getInstance() {
-        if (instance == null)
-            instance = new DataHandler();
-        return instance;
-    }
+    private DataHandler() {}
 
     /**
      * reads all countries
      * @return list of countries
      */
-    public List<Country> readAllCountries() {
+    public static List<Country> readAllCountries() {
         return getCountryList();
     }
     /**
      * reads all vehicles
      * @return list of vehicles
      */
-    public List<Vehicle> readAllVehicles() {
+    public static List<Vehicle> readAllVehicles() {
         return getVehicleList();
     }
     /**
      * reads all weapons
      * @return list of weapons
      */
-    public List<Weapon> readAllWeapons() {
+    public static List<Weapon> readAllWeapons() {
         return getWeaponList();
     }
 
@@ -73,7 +56,7 @@ public class DataHandler {
      * @param vehicleName
      * @return vehicle (null=not found)
      */
-    public Vehicle readVehicleByName(String vehicleName) {
+    public static Vehicle readVehicleByName(String vehicleName) {
         Vehicle vehicle = null;
         for (Vehicle entry : getVehicleList()) {
             if (entry.getVehicleName().equals(vehicleName)) {
@@ -87,7 +70,7 @@ public class DataHandler {
      * @param weaponName
      * @return weapon (null=not found)
      */
-    public Weapon readWeaponByName(String weaponName) {
+    public static Weapon readWeaponByName(String weaponName) {
         Weapon weapon = null;
         for (Weapon entry : getWeaponList()) {
             if (entry.getWeaponName().equals(weaponName)) {
@@ -102,7 +85,7 @@ public class DataHandler {
      * @param name
      * @return country (null=not found)
      */
-    public Country readCountryByName(String name) {
+    public static Country readCountryByName(String name) {
         Country country = null;
         for (Country entry : getCountryList()) {
             if (entry.getName().equals(name)) {
@@ -111,11 +94,29 @@ public class DataHandler {
         }
         return country;
     }
+    /**
+     * writes the countryList to the JSON-file
+     */
+    private static void writeCountryJSON() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer(new DefaultPrettyPrinter());
+        FileOutputStream fileOutputStream = null;
+        Writer fileWriter;
+
+        String countryPath = Config.getProperty("countryJSON");
+        try {
+            fileOutputStream = new FileOutputStream(countryPath);
+            fileWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8));
+            objectWriter.writeValue(fileWriter, getCountryList());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
 
     /**
      * reads the country from the JSON-file
      */
-    private void readCountryJSON() {
+    private static void readCountryJSON() {
         try {
             byte[] jsonData = Files.readAllBytes(
                     Paths.get(
@@ -133,9 +134,28 @@ public class DataHandler {
     }
 
     /**
+     * writes the vehicleList to the JSON-file
+     */
+    private static void writeVehicleJSON() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer(new DefaultPrettyPrinter());
+        FileOutputStream fileOutputStream = null;
+        Writer fileWriter;
+
+        String vehiclePath = Config.getProperty("vehicleJSON");
+        try {
+            fileOutputStream = new FileOutputStream(vehiclePath);
+            fileWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8));
+            objectWriter.writeValue(fileWriter, getVehicleList());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
      * reads the vehicle from the JSON-file
      */
-    private void readVehicleJSON() {
+    private static void readVehicleJSON() {
         try {
             byte[] jsonData = Files.readAllBytes(
                     Paths.get(
@@ -153,9 +173,28 @@ public class DataHandler {
     }
 
     /**
+     * writes the weaponList to the JSON-file
+     */
+    private static void writeWeaponJSON() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        ObjectWriter objectWriter = objectMapper.writer(new DefaultPrettyPrinter());
+        FileOutputStream fileOutputStream = null;
+        Writer fileWriter;
+
+        String weaponPath = Config.getProperty("weaponJSON");
+        try {
+            fileOutputStream = new FileOutputStream(weaponPath);
+            fileWriter = new BufferedWriter(new OutputStreamWriter(fileOutputStream, StandardCharsets.UTF_8));
+            objectWriter.writeValue(fileWriter, getWeaponList());
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
      * reads the weapons from the JSON-file
      */
-    private void readWeaponJSON() {
+    private static void readWeaponJSON() {
         try {
                 String path = Config.getProperty("weaponJSON");
             byte[] jsonData = Files.readAllBytes(
@@ -172,11 +211,117 @@ public class DataHandler {
     }
 
     /**
+     * inserts a new country into the countryList
+     *
+     * @param country the country to be saved
+     */
+    public static void insertCountry(Country country) {
+        getCountryList().add(country);
+        writeCountryJSON();
+    }
+
+    /**
+     * inserts a new vehicle into the vehicleList
+     *
+     * @param vehicle the vehicle to be saved
+     */
+    public static void insertVehicle(Vehicle vehicle) {
+        getVehicleList().add(vehicle);
+        writeVehicleJSON();
+    }
+
+    /**
+     * inserts a new weapon into the weaponList
+     *
+     * @param weapon the weapon to be saved
+     */
+    public static void insertWeapon(Weapon weapon) {
+        getWeaponList().add(weapon);
+        writeWeaponJSON();
+    }
+
+    /**
+     * deletes a vehicle identified by the vehicleName
+     * @param vehicleName  the key
+     * @return  success=true/false
+     */
+    public static boolean deleteVehicle(String vehicleName) {
+        Vehicle vehicle = readVehicleByName(vehicleName);
+        if (vehicle != null) {
+            getVehicleList().remove(vehicle);
+            writeVehicleJSON();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * deletes a weapon identified by the weaponName
+     * @param weaponName  the key
+     * @return  success=true/false
+     */
+    public static boolean deleteWeapon(String weaponName) {
+        Weapon weapon = readWeaponByName(weaponName);
+        if (weapon != null) {
+            getWeaponList().remove(weapon);
+            writeWeaponJSON();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * deletes a country identified by the name
+     * @param name  the key
+     * @return  success=true/false
+     */
+    public static boolean deleteCountry(String name) {
+        Country country = readCountryByName(name);
+        if (country != null) {
+            getCountryList().remove(country);
+            writeCountryJSON();
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+
+    /**
+     * updates the vehicleList
+     */
+    public static void updateVehicle() {
+        writeVehicleJSON();
+    }
+
+    /**
+     * updates the weaponList
+     */
+    public static void updateWeapon() {
+        writeWeaponJSON();
+    }
+
+    /**
+     * updates the countryList
+     */
+    public static void updateCountry() {
+        writeVehicleJSON();
+    }
+
+
+    /**
      * gets country list
      *
      * @return value of country
      */
-    private List<Country> getCountryList() {
+    private static List<Country> getCountryList(){
+        if (countryList == null){
+            setCountryLists(new ArrayList<>());
+            readCountryJSON();
+        }
         return countryList;
     }
 
@@ -185,8 +330,8 @@ public class DataHandler {
      *
      * @param countryList the value to set
      */
-    private void setCountryLists(List<Country> countryList) {
-        this.countryList = countryList;
+    private static void setCountryLists(List<Country> countryList) {
+        DataHandler.countryList = countryList;
     }
 
     /**
@@ -194,7 +339,11 @@ public class DataHandler {
      *
      * @return value of vehicle
      */
-    private List<Vehicle> getVehicleList() {
+    private static List<Vehicle> getVehicleList(){
+        if (vehicleList == null){
+            setVehicleList(new ArrayList<>());
+            readVehicleJSON();
+        }
         return vehicleList;
     }
 
@@ -203,8 +352,8 @@ public class DataHandler {
      *
      * @param vehicleList the value to set
      */
-    private void setVehicleList(List<Vehicle> vehicleList) {
-        this.vehicleList = vehicleList;
+    private static void setVehicleList(List<Vehicle> vehicleList) {
+        DataHandler.vehicleList = vehicleList;
     }
 
     /**
@@ -212,7 +361,11 @@ public class DataHandler {
      *
      * @return value of weapon
      */
-    private List<Weapon> getWeaponList() {
+    private static List<Weapon> getWeaponList(){
+        if (weaponList == null){
+            setWeaponList(new ArrayList<>());
+            readWeaponJSON();
+        }
         return weaponList;
     }
 
@@ -221,8 +374,8 @@ public class DataHandler {
      *
      * @param weaponList the value to set
      */
-    private void setWeaponList(List<Weapon> weaponList) {
-        this.weaponList = weaponList;
+    private static void setWeaponList(List<Weapon> weaponList) {
+        DataHandler.weaponList = weaponList;
     }
 
 }

@@ -2,6 +2,8 @@ package ch.bzz.militaryranking.service;
 
 import ch.bzz.militaryranking.data.DataHandler;
 import ch.bzz.militaryranking.model.Weapon;
+
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -15,7 +17,7 @@ import java.util.List;
 @Path("weapon")
 public class WeaponService {
 
-
+    private static int cntr = DataHandler.getWeaponCount();
     /**
      * lists all weapons from weapons.json
      */
@@ -31,15 +33,15 @@ public class WeaponService {
     }
 
     /**
-     * lists the corresponding weapon to given name
+     * lists the corresponding weapon to given id
      */
     @GET
     @Path("read")
     @Produces(MediaType.APPLICATION_JSON)
     public Response readWeapon(
-            @QueryParam("weaponName") String weaponName
+            @QueryParam("weaponID") String weaponID
     ){
-        Weapon weapon = DataHandler.readWeaponByName(weaponName);
+        Weapon weapon = DataHandler.readWeaponByID(weaponID);
         int httpStatus;
 
         if (weapon == null){
@@ -55,7 +57,7 @@ public class WeaponService {
     }
 
     /**
-     * sorts the weapon list by battlepoints or weaponName
+     * sorts the weapon list by battlePoints or weaponName
      */
     @GET
     @Path("sortList")
@@ -96,21 +98,16 @@ public class WeaponService {
 
     /**
      * Inserts a new weapon
-     * @param weaponName the name
-     * @param battlepoints the battlepoints
+     * @param weapon the weapon
      * @return Response
      */
     @POST
     @Path("create")
     @Produces(MediaType.TEXT_PLAIN)
     public Response insertWeapon(
-            @FormParam("weaponName") String weaponName,
-            @FormParam("battlepoints") String battlepoints
+            @Valid @BeanParam Weapon weapon
     ){
-        Weapon weapon = new Weapon();
-        weapon.setWeaponName(weaponName);
-        weapon.setBattlepoints(Integer.parseInt(battlepoints));
-
+        weapon.setWeaponID(++cntr);
         DataHandler.insertWeapon(weapon);
         return Response
                 .status(200)
@@ -119,18 +116,18 @@ public class WeaponService {
     }
 
     /**
-     * deletes a weapon identified by its name
-     * @param weaponName the name
+     * deletes a weapon identified by its id
+     * @param weaponID the id
      * @return Response
      */
     @DELETE
     @Path("delete")
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteWeapon(
-            @QueryParam("weaponName") String weaponName
+            @QueryParam("weaponID") String weaponID
     ){
         int httpStatus = 200;
-        if (!DataHandler.deleteWeapon(weaponName)){
+        if (!DataHandler.deleteWeapon(weaponID)){
             httpStatus = 410;
         }
         return Response
@@ -141,22 +138,22 @@ public class WeaponService {
 
     /**
      * updates a weapon
-     * @param weaponName the name
-     * @param battlepoints the battlepoints
+     * @param weapon the weapon
      * @return Response
      */
     @POST
     @Path("update")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateWeapon(
-            @FormParam("weaponName") String weaponName,
-            @FormParam("battlepoints") String battlepoints
+            @Valid @BeanParam Weapon weapon
     ){
+        System.out.println(weapon.getWeaponID());
         int httpStatus = 200;
-        Weapon weapon = DataHandler.readWeaponByName(weaponName);
-        if (weapon != null){
-            weapon.setWeaponName(weaponName);
-            weapon.setBattlepoints(Integer.parseInt(battlepoints));
+        Weapon oldWeapon = DataHandler.readWeaponByID(Integer.toString(weapon.getWeaponID()));
+        if (oldWeapon != null){
+            oldWeapon.setSecureCode(weapon.getSecureCode());
+            oldWeapon.setWeaponName(weapon.getWeaponName());
+            oldWeapon.setBattlepoints(weapon.getBattlepoints());
 
             DataHandler.updateWeapon();
         }
@@ -168,6 +165,5 @@ public class WeaponService {
                 .entity("")
                 .build();
     }
-
 
 }

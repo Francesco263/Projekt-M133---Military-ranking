@@ -1,15 +1,22 @@
 package ch.bzz.militaryranking.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
+import javax.ws.rs.FormParam;
 import java.util.Vector;
 
 public class Country {
 
-    private String name;
+    private int countryID;
     private int militaryPower;
-
     @JsonIgnore
     private Vector<Vehicle> vehicles;
+
+    @FormParam("name")
+    @NotEmpty
+    @Size(min=5, max=40)
+    private String name;
 
     /**
      * gets name
@@ -57,5 +64,21 @@ public class Country {
      */
     public void setVehicles(Vector<Vehicle> vehicles) {
         this.vehicles = vehicles;
+    }
+
+    /**
+     * gets countryID
+     * @return
+     */
+    public int getCountryID() {
+        return countryID;
+    }
+
+    /**
+     * sets CountryID
+     * @param countryID
+     */
+    public void setCountryID(int countryID) {
+        this.countryID = countryID;
     }
 }

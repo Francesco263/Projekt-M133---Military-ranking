@@ -52,28 +52,28 @@ public class DataHandler {
     }
 
     /**
-     * reads a vehicle by its name
-     * @param vehicleName
+     * reads a vehicle by its id
+     * @param vehicleID
      * @return vehicle (null=not found)
      */
-    public static Vehicle readVehicleByName(String vehicleName) {
+    public static Vehicle readVehicleByID(String vehicleID) {
         Vehicle vehicle = null;
         for (Vehicle entry : getVehicleList()) {
-            if (entry.getVehicleName().equals(vehicleName)) {
+            if (entry.getVehicleID() == Integer.parseInt(vehicleID)) {
                 vehicle = entry;
             }
         }
         return vehicle;
     }
     /**
-     * reads a weapon by its name
-     * @param weaponName
+     * reads a weapon by its id
+     * @param weaponID
      * @return weapon (null=not found)
      */
-    public static Weapon readWeaponByName(String weaponName) {
+    public static Weapon readWeaponByID(String weaponID) {
         Weapon weapon = null;
         for (Weapon entry : getWeaponList()) {
-            if (entry.getWeaponName().equals(weaponName)) {
+            if (entry.getWeaponID() == Integer.parseInt(weaponID)) {
                 weapon = entry;
             }
         }
@@ -82,13 +82,13 @@ public class DataHandler {
 
     /**
      * reads a country by its name
-     * @param name
+     * @param countryID
      * @return country (null=not found)
      */
-    public static Country readCountryByName(String name) {
+    public static Country readCountryByID(String countryID) {
         Country country = null;
         for (Country entry : getCountryList()) {
-            if (entry.getName().equals(name)) {
+            if (entry.getCountryID() == Integer.parseInt(countryID)) {
                 country = entry;
             }
         }
@@ -241,12 +241,12 @@ public class DataHandler {
     }
 
     /**
-     * deletes a vehicle identified by the vehicleName
-     * @param vehicleName  the key
+     * deletes a vehicle identified by the vehicleID
+     * @param vehicleID  the key
      * @return  success=true/false
      */
-    public static boolean deleteVehicle(String vehicleName) {
-        Vehicle vehicle = readVehicleByName(vehicleName);
+    public static boolean deleteVehicle(String vehicleID) {
+        Vehicle vehicle = readVehicleByID(vehicleID);
         if (vehicle != null) {
             getVehicleList().remove(vehicle);
             writeVehicleJSON();
@@ -257,12 +257,12 @@ public class DataHandler {
     }
 
     /**
-     * deletes a weapon identified by the weaponName
-     * @param weaponName  the key
+     * deletes a weapon identified by the weaponID
+     * @param weaponID  the key
      * @return  success=true/false
      */
-    public static boolean deleteWeapon(String weaponName) {
-        Weapon weapon = readWeaponByName(weaponName);
+    public static boolean deleteWeapon(String weaponID) {
+        Weapon weapon = readWeaponByID(weaponID);
         if (weapon != null) {
             getWeaponList().remove(weapon);
             writeWeaponJSON();
@@ -273,12 +273,12 @@ public class DataHandler {
     }
 
     /**
-     * deletes a country identified by the name
-     * @param name  the key
+     * deletes a country identified by the countryID
+     * @param countryID  the key
      * @return  success=true/false
      */
-    public static boolean deleteCountry(String name) {
-        Country country = readCountryByName(name);
+    public static boolean deleteCountry(String countryID) {
+        Country country = readCountryByID(countryID);
         if (country != null) {
             getCountryList().remove(country);
             writeCountryJSON();
@@ -378,4 +378,42 @@ public class DataHandler {
         DataHandler.weaponList = weaponList;
     }
 
+    /**
+     * gets weapon count
+     */
+    public static int getWeaponCount(){
+        int maxID = 0;
+        for (int i = 0; i < DataHandler.getWeaponList().size(); i++){
+            if (maxID < DataHandler.getWeaponList().get(i).getWeaponID()){
+                maxID = DataHandler.getWeaponList().get(i).getWeaponID();
+            }
+        }
+        return maxID;
+    }
+
+    /**
+     * gets vehicle count
+     */
+    public static int getVehicleCount(){
+        int maxID = 0;
+        for (int i = 0; i < DataHandler.getVehicleList().size(); i++){
+            if (maxID < DataHandler.getVehicleList().get(i).getVehicleID()){
+                maxID = DataHandler.getVehicleList().get(i).getVehicleID();
+            }
+        }
+        return maxID;
+    }
+
+    /**
+     * gets country count
+     */
+    public static int getCountryCount(){
+        int maxID = 0;
+        for (int i = 0; i < DataHandler.getCountryList().size(); i++){
+            if (maxID < DataHandler.getCountryList().get(i).getCountryID()){
+                maxID = DataHandler.getCountryList().get(i).getCountryID();
+            }
+        }
+        return maxID;
+    }
 }

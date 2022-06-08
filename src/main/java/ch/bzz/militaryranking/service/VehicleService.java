@@ -3,6 +3,7 @@ package ch.bzz.militaryranking.service;
 import ch.bzz.militaryranking.data.DataHandler;
 import ch.bzz.militaryranking.model.Vehicle;
 
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -16,6 +17,7 @@ import java.util.List;
 @Path("vehicle")
 public class VehicleService {
 
+    private static int cntr = DataHandler.getVehicleCount();
     /**
      * lists all vehicles from vehicles.json
      */
@@ -31,15 +33,15 @@ public class VehicleService {
     }
 
     /**
-     * lists the corresponding vehicle to given name
+     * lists the corresponding vehicle to given id
      */
     @GET
     @Path("read")
     @Produces(MediaType.APPLICATION_JSON)
     public Response readVehicle(
-            @QueryParam("vehicleName") String fahrzeugName
+            @QueryParam("vehicleID") String vehicleID
     ){
-        Vehicle vehicle = DataHandler.readVehicleByName(fahrzeugName);
+        Vehicle vehicle = DataHandler.readVehicleByID(vehicleID);
         int httpStatus;
         if (vehicle == null){
             httpStatus = 404;
@@ -103,24 +105,16 @@ public class VehicleService {
 
     /**
      * Inserts a new vehicle
-     * @param vehicleName the name
-     * @param quantity the quantity
-     * @param battlepoints the battlepoints of the unarmed vehicle
+     * @param vehicle the vehicle
      * @return Response
      */
     @POST
     @Path("create")
     @Produces(MediaType.TEXT_PLAIN)
     public Response insertVehicle(
-            @FormParam("vehicleName") String vehicleName,
-            @FormParam("quantity") String quantity,
-            @FormParam("battlepoints") String battlepoints
+            @Valid @BeanParam Vehicle vehicle
     ){
-        Vehicle vehicle = new Vehicle();
-        vehicle.setVehicleName(vehicleName);
-        vehicle.setQuantity(Integer.parseInt(quantity));
-        vehicle.setBattlepoints(Integer.parseInt(battlepoints));
-
+        vehicle.setVehicleID(++cntr);
         DataHandler.insertVehicle(vehicle);
         return Response
                 .status(200)
@@ -129,18 +123,18 @@ public class VehicleService {
     }
 
     /**
-     * deletes a vehicle identified by its name
-     * @param vehicleName the key
+     * deletes a vehicle identified by its id
+     * @param vehicleID the key
      * @return Response
      */
     @DELETE
     @Path("delete")
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteVehicle(
-            @QueryParam("vehicleName") String vehicleName
+            @QueryParam("vehicleID") String vehicleID
     ){
         int httpStatus = 200;
-        if (!DataHandler.deleteVehicle(vehicleName)){
+        if (!DataHandler.deleteVehicle(vehicleID)){
             httpStatus = 410;
         }
         return Response
@@ -151,25 +145,22 @@ public class VehicleService {
 
     /**
      * updates a new vehicle
-     * @param vehicleName the name
-     * @param quantity the quantity
-     * @param battlepoints the battlepoints
+     * @param vehicle the vehicle
      * @return Response
      */
     @POST
     @Path("update")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateVehicle(
-            @FormParam("vehicleName") String vehicleName,
-            @FormParam("quantity") String quantity,
-            @FormParam("battlepoints") String battlepoints
+            @Valid @BeanParam Vehicle vehicle
     ){
         int httpStatus = 200;
-        Vehicle vehicle = DataHandler.readVehicleByName(vehicleName);
-        if (vehicle != null){
-            vehicle.setVehicleName(vehicleName);
-            vehicle.setQuantity(Integer.parseInt(quantity));
-            vehicle.setBattlepoints(Integer.parseInt(battlepoints));
+        Vehicle oldVehicle = DataHandler.readVehicleByID(Integer.toString(vehicle.getVehicleID()));
+        if (oldVehicle != null){
+            oldVehicle.setVehicleName(vehicle.getVehicleName());
+            oldVehicle.setQuantity(vehicle.getQuantity());
+            oldVehicle.setBattlepoints(vehicle.getBattlepoints());
+            oldVehicle.setRegistrationDate(vehicle.getRegistrationDate());
 
             DataHandler.updateVehicle();
         }

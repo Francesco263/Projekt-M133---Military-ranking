@@ -2,6 +2,8 @@ package ch.bzz.militaryranking.service;
 
 import ch.bzz.militaryranking.data.DataHandler;
 import ch.bzz.militaryranking.model.Country;
+
+import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
@@ -15,6 +17,7 @@ import java.util.List;
 @Path("country")
 public class CountryService {
 
+    private static int cntr = DataHandler.getCountryCount();
     /**
      * lists all countries from countries.json
      */
@@ -30,15 +33,15 @@ public class CountryService {
     }
 
     /**
-     * lists the corresponding country to given name
+     * lists the corresponding country to given id
      */
     @GET
     @Path("read")
     @Produces(MediaType.APPLICATION_JSON)
     public Response readCountry(
-            @QueryParam("name") String name
+            @QueryParam("countryID") String countryID
     ){
-        Country country = DataHandler.readCountryByName(name);
+        Country country = DataHandler.readCountryByID(countryID);
         int httpStatus;
         if (country == null){
             httpStatus = 404;
@@ -94,18 +97,15 @@ public class CountryService {
 
     /**
      * Inserts a new Country
-     * @param name the name
+     * @param country the country to be inserted
      * @return Response
      */
     @POST
     @Path("create")
     @Produces(MediaType.TEXT_PLAIN)
     public Response insertCountry(
-            @FormParam("name") String name
+            @Valid @BeanParam Country country
     ){
-        Country country = new Country();
-        country.setName(name);
-
         DataHandler.insertCountry(country);
         return Response
                 .status(200)
@@ -114,18 +114,18 @@ public class CountryService {
     }
 
     /**
-     * deletes a country identified by its name
-     * @param name the key
+     * deletes a country identified by its id
+     * @param countryID the key
      * @return Response
      */
     @DELETE
     @Path("delete")
     @Produces(MediaType.TEXT_PLAIN)
-    public Response deleteBook(
-            @QueryParam("name") String name
+    public Response deleteCountry(
+            @QueryParam("countryID") String countryID
     ){
         int httpStatus = 200;
-        if (!DataHandler.deleteCountry(name)){
+        if (!DataHandler.deleteCountry(countryID)){
             httpStatus = 410;
         }
         return Response
@@ -136,20 +136,19 @@ public class CountryService {
 
     /**
      * updates a country
-     * @param name the name
+     * @param country the id
      * @return Response
      */
     @POST
     @Path("update")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateCountry(
-            @FormParam("name") String name
+            @Valid @BeanParam Country country
     ){
         int httpStatus = 200;
-        Country country = DataHandler.readCountryByName(name);
-        if (country != null){
-            country.setName(name);
-
+        Country oldCountry = DataHandler.readCountryByID(Integer.toString(country.getCountryID()));
+        if (oldCountry != null){
+            oldCountry.setName(country.getName());
             DataHandler.updateCountry();
         }
         else{

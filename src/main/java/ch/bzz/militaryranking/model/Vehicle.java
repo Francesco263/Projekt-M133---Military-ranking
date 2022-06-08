@@ -2,16 +2,39 @@ package ch.bzz.militaryranking.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+import javax.ws.rs.FormParam;
 import java.util.Vector;
 
 public class Vehicle {
 
-    private String vehicleName;
-    private int quantity;
-    private int battlepoints;
+    private int vehicleID;
 
     @JsonIgnore
     private Vector<Weapon> weapons;
+
+    @FormParam("registrationDate")
+    @NotEmpty
+    @Pattern(regexp = "^\\d{2}\\.\\d{2}\\.\\d{4}$")
+    private String registrationDate;
+
+    @FormParam("vehicleName")
+    @NotEmpty
+    @Size(min=5, max=40)
+    private String vehicleName;
+
+    @FormParam("quantity")
+    @NotNull
+    //@Range(min=5, max=40)
+    private int quantity;
+
+    @FormParam("battlepoints")
+    @NotNull
+    //@Range(min=5, max=40)
+    private int battlepoints;
 
 
     /**
@@ -63,7 +86,7 @@ public class Vehicle {
     }
 
     /**
-     * getss weapons
+     * gets weapons
      * @return weapons
      */
     public Vector<Weapon> getWeapons() {
@@ -76,5 +99,38 @@ public class Vehicle {
      */
     public void setWeapons(Vector<Weapon> weapons) {
         this.weapons = weapons;
+    }
+
+
+    /**
+     * gets vehicleID
+     * @return vehicleID
+     */
+    public int getVehicleID() {
+        return vehicleID;
+    }
+
+    /**
+     * sets vehicleID
+     * @param vehicleID
+     */
+    public void setVehicleID(int vehicleID) {
+        this.vehicleID = vehicleID;
+    }
+
+    /**
+     * gets registration date
+     * @return
+     */
+    public String getRegistrationDate() {
+        return registrationDate;
+    }
+
+    /**
+     * sets registration date
+     * @param registrationDate
+     */
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
     }
 }

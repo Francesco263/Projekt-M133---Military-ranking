@@ -1,18 +1,18 @@
 {
-	"id": "1c074a26-fd49-4c5b-a984-326d9d83c024",
+	"id": "a58abc59-f92e-4fd1-b99c-c32a8ae7c8ea",
 	"name": "Projekt M133 - Military ranking",
-	"timestamp": "2022-05-24T09:53:00.011Z",
+	"timestamp": "2022-06-12T15:55:12.300Z",
 	"collection_id": "f7172978-d391-4d77-8193-109d51652e36",
 	"folder_id": 0,
 	"environment_id": "0",
-	"totalPass": 26,
-	"totalFail": 0,
+	"totalPass": 41,
+	"totalFail": 18,
 	"results": [
 		{
 			"id": "56632ef2-44c7-4829-a715-8d5bf629e2b6",
 			"name": "0.1 Testservice",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/test/test",
-			"time": 32,
+			"time": 11,
 			"responseCode": {
 				"code": 200,
 				"name": "OK"
@@ -27,7 +27,7 @@
 				}
 			},
 			"times": [
-				32
+				11
 			],
 			"allTests": [
 				{
@@ -39,7 +39,7 @@
 			"id": "c1825b3a-daaf-4d89-a2a9-489ac3d73b8a",
 			"name": "1.0 list all weapons",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/list",
-			"time": 5,
+			"time": 18,
 			"responseCode": {
 				"code": 200,
 				"name": "OK"
@@ -59,7 +59,7 @@
 				}
 			},
 			"times": [
-				5
+				18
 			],
 			"allTests": [
 				{
@@ -72,32 +72,32 @@
 			"id": "4f549b7b-ff63-498b-b0f9-01a260638dbc",
 			"name": "1.1 read weapon",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/read?weaponName=AIM-9X",
-			"time": 64,
+			"time": 6,
 			"responseCode": {
-				"code": 200,
-				"name": "OK"
+				"code": 500,
+				"name": "Internal Server Error"
 			},
 			"tests": {
-				"Status test": true,
-				"validate response": true
+				"Status test": false,
+				"validate response": false
 			},
 			"testPassFailCounts": {
 				"Status test": {
-					"pass": 1,
-					"fail": 0
+					"pass": 0,
+					"fail": 1
 				},
 				"validate response": {
-					"pass": 1,
-					"fail": 0
+					"pass": 0,
+					"fail": 1
 				}
 			},
 			"times": [
-				64
+				6
 			],
 			"allTests": [
 				{
-					"Status test": true,
-					"validate response": true
+					"Status test": false,
+					"validate response": false
 				}
 			]
 		},
@@ -107,8 +107,224 @@
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/read?weaponName=AIM-9",
 			"time": 10,
 			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Status test": false
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				10
+			],
+			"allTests": [
+				{
+					"Status test": false
+				}
+			]
+		},
+		{
+			"id": "8564efcc-f983-4a4d-bb6f-0d48d9f6a516",
+			"name": "1.3 sortWeaponByName",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/sortList?sortBy=weaponName",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "dd78d93b-8592-4784-9e14-fb3c73634a18",
+			"name": "1.4 sortWeaponByBattlepoints",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/sortList?sortBy=battlepoints",
+			"time": 3,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				3
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "12ff9170-6370-40bf-8dbf-b729a11554cf",
+			"name": "1.5 sortBy not found",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/sortList?sortBy=battlepoint",
+			"time": 4,
+			"responseCode": {
 				"code": 404,
 				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "e49fa10d-ed65-477a-bda2-c7be783ed543",
+			"name": "1.6 insert new Weapon",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
+			"time": 15,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "32af35d8-14a8-44f2-83f4-0def8c53e777",
+			"name": "1.8 update weapon",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/update",
+			"time": 16,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": false
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status test": false
+				}
+			]
+		},
+		{
+			"id": "1d67526c-4846-42c6-b618-46e51733f477",
+			"name": "1.7 delete weapon",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/delete?weaponID=1",
+			"time": 9,
+			"responseCode": {
+				"code": 410,
+				"name": "Gone"
+			},
+			"tests": {
+				"Status test": false
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status test": false
+				}
+			]
+		},
+		{
+			"id": "34e331fe-8b54-4c61-af4c-465af6d45df7",
+			"name": "1.9 secureCode too small",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
+			"time": 8,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "c7d1d345-a4e0-4308-99a0-29663d2f09d0",
+			"name": "1.10 secureCode too large",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
+			"time": 10,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
 			},
 			"tests": {
 				"Status test": true
@@ -129,13 +345,13 @@
 			]
 		},
 		{
-			"id": "8564efcc-f983-4a4d-bb6f-0d48d9f6a516",
-			"name": "1.3 sortWeaponByName",
-			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/sortList?sortBy=weaponName",
+			"id": "375a0765-f766-4f97-96c7-202ac3ef62db",
+			"name": "1.11 secureCode invalid format",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
 			"time": 9,
 			"responseCode": {
-				"code": 200,
-				"name": "OK"
+				"code": 400,
+				"name": "Bad Request"
 			},
 			"tests": {
 				"Status test": true
@@ -156,214 +372,13 @@
 			]
 		},
 		{
-			"id": "dd78d93b-8592-4784-9e14-fb3c73634a18",
-			"name": "1.4 sortWeaponByBattlepoints",
-			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/sortList?sortBy=battlepoints",
-			"time": 6,
-			"responseCode": {
-				"code": 200,
-				"name": "OK"
-			},
-			"tests": {
-				"Status test": true
-			},
-			"testPassFailCounts": {
-				"Status test": {
-					"pass": 1,
-					"fail": 0
-				}
-			},
-			"times": [
-				6
-			],
-			"allTests": [
-				{
-					"Status test": true
-				}
-			]
-		},
-		{
-			"id": "12ff9170-6370-40bf-8dbf-b729a11554cf",
-			"name": "1.5 sortBy not found",
-			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/sortList?sortBy=battlepoint",
-			"time": 6,
-			"responseCode": {
-				"code": 404,
-				"name": "Not Found"
-			},
-			"tests": {
-				"Status test": true
-			},
-			"testPassFailCounts": {
-				"Status test": {
-					"pass": 1,
-					"fail": 0
-				}
-			},
-			"times": [
-				6
-			],
-			"allTests": [
-				{
-					"Status test": true
-				}
-			]
-		},
-		{
-			"id": "00697de5-d907-4847-9343-c014e314d9a8",
-			"name": "2.0 list all vehicles",
-			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/list",
-			"time": 14,
-			"responseCode": {
-				"code": 200,
-				"name": "OK"
-			},
-			"tests": {
-				"Status test": true,
-				"validate response": true
-			},
-			"testPassFailCounts": {
-				"Status test": {
-					"pass": 1,
-					"fail": 0
-				},
-				"validate response": {
-					"pass": 1,
-					"fail": 0
-				}
-			},
-			"times": [
-				14
-			],
-			"allTests": [
-				{
-					"Status test": true,
-					"validate response": true
-				}
-			]
-		},
-		{
-			"id": "aeb138dc-2a48-4fa8-a4e6-2b62d0f450e0",
-			"name": "2.1 read vehicle",
-			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/read?vehicleName=F-22%20Raptor",
-			"time": 9,
-			"responseCode": {
-				"code": 200,
-				"name": "OK"
-			},
-			"tests": {
-				"Status test": true,
-				"validate response": true
-			},
-			"testPassFailCounts": {
-				"Status test": {
-					"pass": 1,
-					"fail": 0
-				},
-				"validate response": {
-					"pass": 1,
-					"fail": 0
-				}
-			},
-			"times": [
-				9
-			],
-			"allTests": [
-				{
-					"Status test": true,
-					"validate response": true
-				}
-			]
-		},
-		{
-			"id": "815162ab-3562-4733-802d-35670304570f",
-			"name": "2.2 read vehicle not found",
-			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/read?vehicleName=F-22%20Rapto",
-			"time": 19,
-			"responseCode": {
-				"code": 404,
-				"name": "Not Found"
-			},
-			"tests": {
-				"Status test": true
-			},
-			"testPassFailCounts": {
-				"Status test": {
-					"pass": 1,
-					"fail": 0
-				}
-			},
-			"times": [
-				19
-			],
-			"allTests": [
-				{
-					"Status test": true
-				}
-			]
-		},
-		{
-			"id": "27507e46-de5e-47d2-ab8a-7c3efc7f68d0",
-			"name": "2.3 sort vehicle by name",
-			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/sortList?sortBy=vehicleName",
-			"time": 14,
-			"responseCode": {
-				"code": 200,
-				"name": "OK"
-			},
-			"tests": {
-				"Status test": true
-			},
-			"testPassFailCounts": {
-				"Status test": {
-					"pass": 1,
-					"fail": 0
-				}
-			},
-			"times": [
-				14
-			],
-			"allTests": [
-				{
-					"Status test": true
-				}
-			]
-		},
-		{
-			"id": "6152a8e1-659c-484b-9e46-6da0729ab59b",
-			"name": "2.4 sort vehicle by battlepoints",
-			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/sortList?sortBy=battlepoints",
-			"time": 9,
-			"responseCode": {
-				"code": 200,
-				"name": "OK"
-			},
-			"tests": {
-				"Status test": true
-			},
-			"testPassFailCounts": {
-				"Status test": {
-					"pass": 1,
-					"fail": 0
-				}
-			},
-			"times": [
-				9
-			],
-			"allTests": [
-				{
-					"Status test": true
-				}
-			]
-		},
-		{
-			"id": "94b8f7c8-59ca-4bba-be23-cec68fc00816",
-			"name": "2.5 sort vehicle by quantity",
-			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/sortList?sortBy=quantity",
+			"id": "53e46a2f-26a4-4ea5-9ffc-8abc3f1f5d6e",
+			"name": "1.12 weaponName too small",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
 			"time": 7,
 			"responseCode": {
-				"code": 200,
-				"name": "OK"
+				"code": 400,
+				"name": "Bad Request"
 			},
 			"tests": {
 				"Status test": true
@@ -384,10 +399,292 @@
 			]
 		},
 		{
+			"id": "d8942d47-5d6e-4066-b8e8-8f1d72b30a18",
+			"name": "1.13 weaponName too large",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
+			"time": 8,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "9a3ea3c4-5ec5-46a9-bed3-0da30fab2d73",
+			"name": "1.14 weaponName not existing",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
+			"time": 16,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": false
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status test": false
+				}
+			]
+		},
+		{
+			"id": "172a7644-67e7-4a4f-9ee3-47ec596c2e5c",
+			"name": "1.15 battlepoints not existing",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
+			"time": 12,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": false
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status test": false
+				}
+			]
+		},
+		{
+			"id": "fe77c9a2-c9c8-4761-94d4-ccbd98c588a8",
+			"name": "1.16 battlepoints invalid format",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
+			"time": 11,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				11
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "00697de5-d907-4847-9343-c014e314d9a8",
+			"name": "2.0 list all vehicles",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/list",
+			"time": 10,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true,
+				"validate response": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate response": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				10
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"validate response": true
+				}
+			]
+		},
+		{
+			"id": "aeb138dc-2a48-4fa8-a4e6-2b62d0f450e0",
+			"name": "2.1 read vehicle",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/read?vehicleName=F-22%20Raptor",
+			"time": 7,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Status test": false,
+				"validate response": false
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 0,
+					"fail": 1
+				},
+				"validate response": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status test": false,
+					"validate response": false
+				}
+			]
+		},
+		{
+			"id": "815162ab-3562-4733-802d-35670304570f",
+			"name": "2.2 read vehicle not found",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/read?vehicleName=F-22%20Rapto",
+			"time": 7,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Status test": false
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status test": false
+				}
+			]
+		},
+		{
+			"id": "27507e46-de5e-47d2-ab8a-7c3efc7f68d0",
+			"name": "2.3 sort vehicle by name",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/sortList?sortBy=vehicleName",
+			"time": 15,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				15
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "6152a8e1-659c-484b-9e46-6da0729ab59b",
+			"name": "2.4 sort vehicle by battlepoints",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/sortList?sortBy=battlepoints",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "94b8f7c8-59ca-4bba-be23-cec68fc00816",
+			"name": "2.5 sort vehicle by quantity",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/sortList?sortBy=quantity",
+			"time": 8,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
 			"id": "abaac6f1-7745-4fa3-acc3-630b4246da5f",
 			"name": "2.6 sortBy not found",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/sortList?sortBy=battlepoint",
-			"time": 18,
+			"time": 16,
 			"responseCode": {
 				"code": 404,
 				"name": "Not Found"
@@ -402,7 +699,7 @@
 				}
 			},
 			"times": [
-				18
+				16
 			],
 			"allTests": [
 				{
@@ -411,24 +708,100 @@
 			]
 		},
 		{
-			"id": "82497b42-bbb3-4b6a-ba20-2647a270de13",
-			"name": "3.0 list all countries",
-			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/list",
-			"time": 6,
+			"id": "9564ecb6-5de7-48d8-93be-0482aa0293d7",
+			"name": "2.7 insert new vehicle",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+			"time": 12,
 			"responseCode": {
-				"code": 200,
-				"name": "OK"
+				"code": 400,
+				"name": "Bad Request"
 			},
 			"tests": {
-				"Status test": true,
-				"validate response": true
+				"Status test": false
 			},
 			"testPassFailCounts": {
 				"Status test": {
-					"pass": 1,
-					"fail": 0
-				},
-				"validate response": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				12
+			],
+			"allTests": [
+				{
+					"Status test": false
+				}
+			]
+		},
+		{
+			"id": "998e99dc-51c9-4754-b786-708c89991185",
+			"name": "2.8 delete vehicle",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/delete?vehicleID=1",
+			"time": 14,
+			"responseCode": {
+				"code": 410,
+				"name": "Gone"
+			},
+			"tests": {
+				"Status test": false
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				14
+			],
+			"allTests": [
+				{
+					"Status test": false
+				}
+			]
+		},
+		{
+			"id": "347ea4f1-61da-49b4-ae49-ee32b5524661",
+			"name": "2.9 update vehicle",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/update",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": false
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": false
+				}
+			]
+		},
+		{
+			"id": "e969bc08-b23a-45fc-81bc-51241aad749f",
+			"name": "2.10 registrationDate too small",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
 					"pass": 1,
 					"fail": 0
 				}
@@ -438,52 +811,45 @@
 			],
 			"allTests": [
 				{
-					"Status test": true,
-					"validate response": true
+					"Status test": true
 				}
 			]
 		},
 		{
-			"id": "113036a9-5dcb-4db0-a2cc-1df6193e1207",
-			"name": "3.1 read country",
-			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/read?name=America",
-			"time": 5,
+			"id": "db3c9ed3-b000-44fe-bdbd-69d47d9a1036",
+			"name": "2.11 registrationDate too large",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+			"time": 21,
 			"responseCode": {
-				"code": 200,
-				"name": "OK"
+				"code": 400,
+				"name": "Bad Request"
 			},
 			"tests": {
-				"Status test": true,
-				"validate response": true
+				"Status test": true
 			},
 			"testPassFailCounts": {
 				"Status test": {
 					"pass": 1,
 					"fail": 0
-				},
-				"validate response": {
-					"pass": 1,
-					"fail": 0
 				}
 			},
 			"times": [
-				5
+				21
 			],
 			"allTests": [
 				{
-					"Status test": true,
-					"validate response": true
+					"Status test": true
 				}
 			]
 		},
 		{
-			"id": "5d2019bb-e188-44da-bc28-d5d23764cfa7",
-			"name": "3.2 read country not found",
-			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/read?name=Americ",
+			"id": "12827f3f-fa88-435b-97ef-440dc3946967",
+			"name": "2.12 registrationDate invalid format",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
 			"time": 10,
 			"responseCode": {
-				"code": 404,
-				"name": "Not Found"
+				"code": 400,
+				"name": "Bad Request"
 			},
 			"tests": {
 				"Status test": true
@@ -496,6 +862,396 @@
 			},
 			"times": [
 				10
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "a733343d-248c-4579-9d6a-7a57b4c080aa",
+			"name": "2.13 registrationDate not existing",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+			"time": 9,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "9f6596e2-c9e8-4a76-a22b-a9bc06191fe6",
+			"name": "2.14 vehicleName too small",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+			"time": 7,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				7
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "6f26a1cd-02cd-4166-8bda-c752116a6a98",
+			"name": "2.15 vehicleName too large",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+			"time": 9,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "f04aaac0-ae56-4585-ad8f-03279c85c1a8",
+			"name": "2.16 vehicleName not existing",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "598c9c9d-d7e2-482b-aa00-2da9fe093955",
+			"name": "2.17 quantity not existing",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+			"time": 8,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "c4eeb5fb-c2a2-4b71-b590-76c93826e854",
+			"name": "2.18 quantity invalid format",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+			"time": 8,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "ff8a261c-830a-49ec-a51f-4e549e8f55df",
+			"name": "2.19 battlepoints not existing",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "e882bfdb-c442-435f-ba8f-33828658e494",
+			"name": "2.20 battlepoints invalid format",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+			"time": 17,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				17
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "9c58863c-bfce-4292-8890-9b22dc239ca6",
+			"name": "2.21 weaponIDs invalid",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+			"time": 9,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				9
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "20ace2ae-df96-4fa1-8d82-dd5671747e2c",
+			"name": "2.22 weaponIDs not existing",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+			"time": 16,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				16
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "d5e5ddd8-8e26-4533-b9fd-e7f380d60df9",
+			"name": "2.23 weaponIDs invalid format",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+			"time": 5,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Status test": false
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": false
+				}
+			]
+		},
+		{
+			"id": "82497b42-bbb3-4b6a-ba20-2647a270de13",
+			"name": "3.0 list all countries",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/list",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status test": true,
+				"validate response": false
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				},
+				"validate response": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				4
+			],
+			"allTests": [
+				{
+					"Status test": true,
+					"validate response": false
+				}
+			]
+		},
+		{
+			"id": "113036a9-5dcb-4db0-a2cc-1df6193e1207",
+			"name": "3.1 read country",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/read?name=America",
+			"time": 8,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": false,
+				"validate response": false
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 0,
+					"fail": 1
+				},
+				"validate response": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				8
+			],
+			"allTests": [
+				{
+					"Status test": false,
+					"validate response": false
+				}
+			]
+		},
+		{
+			"id": "5d2019bb-e188-44da-bc28-d5d23764cfa7",
+			"name": "3.2 read country not found",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/read?name=Americ",
+			"time": 8,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				8
 			],
 			"allTests": [
 				{
@@ -507,7 +1263,7 @@
 			"id": "8b5c96cc-e0b1-4d02-9b3c-6bc64fb1642a",
 			"name": "3.3 sort country by name",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/sortList?sortBy=name",
-			"time": 35,
+			"time": 4,
 			"responseCode": {
 				"code": 200,
 				"name": "OK"
@@ -522,7 +1278,7 @@
 				}
 			},
 			"times": [
-				35
+				4
 			],
 			"allTests": [
 				{
@@ -534,10 +1290,118 @@
 			"id": "61c1b904-09ca-43c0-a20a-9a6c23d3deb3",
 			"name": "3.4 sort country by military power",
 			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/sortList?sortBy=militaryPower",
-			"time": 10,
+			"time": 11,
 			"responseCode": {
 				"code": 200,
 				"name": "OK"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				11
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "e45d9c59-7a88-438f-a4b2-0962cc59af08",
+			"name": "3.5 sortBy not found",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/sortList?sortBy=",
+			"time": 5,
+			"responseCode": {
+				"code": 404,
+				"name": "Not Found"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				5
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "be02c108-d3b2-4e8a-aea5-7ef15cedd918",
+			"name": "2.7 insert new country",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/create",
+			"time": 5,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				5
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "a2d6373f-78e4-4e07-8d91-3521a6777cf1",
+			"name": "2.8 delete country",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/delete?countryID=1",
+			"time": 6,
+			"responseCode": {
+				"code": 410,
+				"name": "Gone"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				6
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "894bd491-d1c7-4269-b882-ca84c6091d7c",
+			"name": "2.9 update country",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/update",
+			"time": 9,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				9
+			],
+			"allTests": [
+				{}
+			]
+		},
+		{
+			"id": "aca3c078-7906-4369-92ef-fde2c1f029d6",
+			"name": "2.10 name too small",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/create",
+			"time": 10,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
 			},
 			"tests": {
 				"Status test": true
@@ -558,13 +1422,13 @@
 			]
 		},
 		{
-			"id": "e45d9c59-7a88-438f-a4b2-0962cc59af08",
-			"name": "3.5 sortBy not found",
-			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/sortList?sortBy=",
-			"time": 14,
+			"id": "cdbeeddb-0638-4a80-b853-4b967fd86e8f",
+			"name": "2.11 name too large",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/create",
+			"time": 11,
 			"responseCode": {
-				"code": 404,
-				"name": "Not Found"
+				"code": 400,
+				"name": "Bad Request"
 			},
 			"tests": {
 				"Status test": true
@@ -576,17 +1440,98 @@
 				}
 			},
 			"times": [
-				14
+				11
 			],
 			"allTests": [
 				{
 					"Status test": true
 				}
 			]
+		},
+		{
+			"id": "34c9044e-b238-4eb7-8ea1-275a4bacffeb",
+			"name": "2.12 vehicleIDs invalid",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/create",
+			"time": 6,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				6
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "a6e5d26d-6f0f-47f5-a2ba-26dae9640143",
+			"name": "2.13 vehicleIDs not existing",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/create",
+			"time": 23,
+			"responseCode": {
+				"code": 400,
+				"name": "Bad Request"
+			},
+			"tests": {
+				"Status test": true
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 1,
+					"fail": 0
+				}
+			},
+			"times": [
+				23
+			],
+			"allTests": [
+				{
+					"Status test": true
+				}
+			]
+		},
+		{
+			"id": "23b7fa46-bc24-40b4-8bb9-2e2866c8a014",
+			"name": "2.14 vehicleIDs invalid format",
+			"url": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/create",
+			"time": 13,
+			"responseCode": {
+				"code": 500,
+				"name": "Internal Server Error"
+			},
+			"tests": {
+				"Status test": false
+			},
+			"testPassFailCounts": {
+				"Status test": {
+					"pass": 0,
+					"fail": 1
+				}
+			},
+			"times": [
+				13
+			],
+			"allTests": [
+				{
+					"Status test": false
+				}
+			]
 		}
 	],
 	"count": 1,
-	"totalTime": 302,
+	"totalTime": 533,
 	"collection": {
 		"requests": [
 			{
@@ -618,6 +1563,50 @@
 				"method": "GET"
 			},
 			{
+				"id": "e49fa10d-ed65-477a-bda2-c7be783ed543",
+				"method": "POST"
+			},
+			{
+				"id": "32af35d8-14a8-44f2-83f4-0def8c53e777",
+				"method": "POST"
+			},
+			{
+				"id": "1d67526c-4846-42c6-b618-46e51733f477",
+				"method": "DELETE"
+			},
+			{
+				"id": "34e331fe-8b54-4c61-af4c-465af6d45df7",
+				"method": "POST"
+			},
+			{
+				"id": "c7d1d345-a4e0-4308-99a0-29663d2f09d0",
+				"method": "POST"
+			},
+			{
+				"id": "375a0765-f766-4f97-96c7-202ac3ef62db",
+				"method": "POST"
+			},
+			{
+				"id": "53e46a2f-26a4-4ea5-9ffc-8abc3f1f5d6e",
+				"method": "POST"
+			},
+			{
+				"id": "d8942d47-5d6e-4066-b8e8-8f1d72b30a18",
+				"method": "POST"
+			},
+			{
+				"id": "9a3ea3c4-5ec5-46a9-bed3-0da30fab2d73",
+				"method": "POST"
+			},
+			{
+				"id": "172a7644-67e7-4a4f-9ee3-47ec596c2e5c",
+				"method": "POST"
+			},
+			{
+				"id": "fe77c9a2-c9c8-4761-94d4-ccbd98c588a8",
+				"method": "POST"
+			},
+			{
 				"id": "00697de5-d907-4847-9343-c014e314d9a8",
 				"method": "GET"
 			},
@@ -646,6 +1635,74 @@
 				"method": "GET"
 			},
 			{
+				"id": "9564ecb6-5de7-48d8-93be-0482aa0293d7",
+				"method": "POST"
+			},
+			{
+				"id": "998e99dc-51c9-4754-b786-708c89991185",
+				"method": "DELETE"
+			},
+			{
+				"id": "347ea4f1-61da-49b4-ae49-ee32b5524661",
+				"method": "POST"
+			},
+			{
+				"id": "e969bc08-b23a-45fc-81bc-51241aad749f",
+				"method": "POST"
+			},
+			{
+				"id": "db3c9ed3-b000-44fe-bdbd-69d47d9a1036",
+				"method": "POST"
+			},
+			{
+				"id": "12827f3f-fa88-435b-97ef-440dc3946967",
+				"method": "POST"
+			},
+			{
+				"id": "a733343d-248c-4579-9d6a-7a57b4c080aa",
+				"method": "POST"
+			},
+			{
+				"id": "9f6596e2-c9e8-4a76-a22b-a9bc06191fe6",
+				"method": "POST"
+			},
+			{
+				"id": "6f26a1cd-02cd-4166-8bda-c752116a6a98",
+				"method": "POST"
+			},
+			{
+				"id": "f04aaac0-ae56-4585-ad8f-03279c85c1a8",
+				"method": "POST"
+			},
+			{
+				"id": "598c9c9d-d7e2-482b-aa00-2da9fe093955",
+				"method": "POST"
+			},
+			{
+				"id": "c4eeb5fb-c2a2-4b71-b590-76c93826e854",
+				"method": "POST"
+			},
+			{
+				"id": "ff8a261c-830a-49ec-a51f-4e549e8f55df",
+				"method": "POST"
+			},
+			{
+				"id": "e882bfdb-c442-435f-ba8f-33828658e494",
+				"method": "POST"
+			},
+			{
+				"id": "9c58863c-bfce-4292-8890-9b22dc239ca6",
+				"method": "POST"
+			},
+			{
+				"id": "20ace2ae-df96-4fa1-8d82-dd5671747e2c",
+				"method": "POST"
+			},
+			{
+				"id": "d5e5ddd8-8e26-4533-b9fd-e7f380d60df9",
+				"method": "POST"
+			},
+			{
 				"id": "82497b42-bbb3-4b6a-ba20-2647a270de13",
 				"method": "GET"
 			},
@@ -668,6 +1725,38 @@
 			{
 				"id": "e45d9c59-7a88-438f-a4b2-0962cc59af08",
 				"method": "GET"
+			},
+			{
+				"id": "be02c108-d3b2-4e8a-aea5-7ef15cedd918",
+				"method": "POST"
+			},
+			{
+				"id": "a2d6373f-78e4-4e07-8d91-3521a6777cf1",
+				"method": "DELETE"
+			},
+			{
+				"id": "894bd491-d1c7-4269-b882-ca84c6091d7c",
+				"method": "POST"
+			},
+			{
+				"id": "aca3c078-7906-4369-92ef-fde2c1f029d6",
+				"method": "POST"
+			},
+			{
+				"id": "cdbeeddb-0638-4a80-b853-4b967fd86e8f",
+				"method": "POST"
+			},
+			{
+				"id": "34c9044e-b238-4eb7-8ea1-275a4bacffeb",
+				"method": "POST"
+			},
+			{
+				"id": "a6e5d26d-6f0f-47f5-a2ba-26dae9640143",
+				"method": "POST"
+			},
+			{
+				"id": "23b7fa46-bc24-40b4-8bb9-2e2866c8a014",
+				"method": "POST"
 			}
 		]
 	}

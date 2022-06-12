@@ -1,7 +1,9 @@
 package ch.bzz.militaryranking.service;
 
 import ch.bzz.militaryranking.data.DataHandler;
+import ch.bzz.militaryranking.model.Country;
 import ch.bzz.militaryranking.model.Vehicle;
+import ch.bzz.militaryranking.model.Weapon;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -10,6 +12,7 @@ import javax.ws.rs.core.Response;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * vehicle service
@@ -115,9 +118,17 @@ public class VehicleService {
             @Valid @BeanParam Vehicle vehicle
     ){
         vehicle.setVehicleID(++cntr);
-        DataHandler.insertVehicle(vehicle);
+        int httpStatus = 200;
+        if (getWeaponsFromID(vehicle) != null){
+            vehicle.setWeapons(getWeaponsFromID(vehicle));
+            DataHandler.insertVehicle(vehicle);
+        }
+        else{
+            httpStatus = 400;
+        }
+
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity("")
                 .build();
     }
@@ -133,6 +144,7 @@ public class VehicleService {
     public Response deleteVehicle(
             @QueryParam("vehicleID") String vehicleID
     ){
+        DataHandler.updateCountry();
         int httpStatus = 200;
         if (!DataHandler.deleteVehicle(vehicleID)){
             httpStatus = 410;
@@ -156,21 +168,41 @@ public class VehicleService {
     ){
         int httpStatus = 200;
         Vehicle oldVehicle = DataHandler.readVehicleByID(Integer.toString(vehicle.getVehicleID()));
-        if (oldVehicle != null){
+        if (oldVehicle != null && getWeaponsFromID(vehicle) != null){
             oldVehicle.setVehicleName(vehicle.getVehicleName());
             oldVehicle.setQuantity(vehicle.getQuantity());
             oldVehicle.setBattlepoints(vehicle.getBattlepoints());
             oldVehicle.setRegistrationDate(vehicle.getRegistrationDate());
-
+            oldVehicle.setWeapons(getWeaponsFromID(vehicle));
             DataHandler.updateVehicle();
         }
-        else{
+        else if (oldVehicle == null){
             httpStatus = 404;
+        }
+        else{
+            httpStatus = 400;
         }
         return Response
                 .status(httpStatus)
                 .entity("")
                 .build();
+    }
+
+    /**
+     * return list of weapon object from weaponIds
+     * @param vehicle
+     * @return
+     */
+    public Vector<Weapon> getWeaponsFromID(Vehicle vehicle){
+        String[] weaponIDs = vehicle.getWeaponIDs().split("\\s+");
+        Vector<Weapon> weapons = new Vector<Weapon>();
+        for (int i = 0; i < weaponIDs.length; i++){
+            if (DataHandler.readWeaponByID(weaponIDs[i]) == null){
+                return null;
+            }
+            weapons.add(DataHandler.readWeaponByID(weaponIDs[i]));
+        }
+        return weapons;
     }
 
 }

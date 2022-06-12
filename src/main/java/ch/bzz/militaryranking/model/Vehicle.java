@@ -1,5 +1,6 @@
 package ch.bzz.militaryranking.model;
 
+import ch.bzz.militaryranking.data.DataHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.validation.constraints.NotEmpty;
@@ -11,10 +12,10 @@ import java.util.Vector;
 
 public class Vehicle {
 
-    private int vehicleID;
-
-    @JsonIgnore
     private Vector<Weapon> weapons;
+
+    @FormParam("vehicleID")
+    private int vehicleID;
 
     @FormParam("registrationDate")
     @NotEmpty
@@ -23,7 +24,7 @@ public class Vehicle {
 
     @FormParam("vehicleName")
     @NotEmpty
-    @Size(min=5, max=40)
+    @Size(min=2, max=40)
     private String vehicleName;
 
     @FormParam("quantity")
@@ -36,6 +37,10 @@ public class Vehicle {
     //@Range(min=5, max=40)
     private int battlepoints;
 
+    @FormParam("weaponIDs")
+    @JsonIgnore
+    @NotEmpty
+    private String weaponIDs;
 
     /**
      * gets name
@@ -98,6 +103,13 @@ public class Vehicle {
      * @param weapons
      */
     public void setWeapons(Vector<Weapon> weapons) {
+        for (int i = 0; i < weapons.size(); i++){
+            Weapon weapon = DataHandler.readWeaponByID(Integer.toString(weapons.get(i).getWeaponID()));
+            weapons.get(i).setSecureCode(weapon.getSecureCode());
+            weapons.get(i).setWeaponName(weapon.getWeaponName());
+            weapons.get(i).setBattlepoints(weapon.getBattlepoints());
+            battlepoints = battlepoints + (weapons.get(i).getBattlepoints() * quantity);
+        };
         this.weapons = weapons;
     }
 
@@ -132,5 +144,21 @@ public class Vehicle {
      */
     public void setRegistrationDate(String registrationDate) {
         this.registrationDate = registrationDate;
+    }
+
+    /**
+     * gets weaponIDs
+      * @return
+     */
+    public String getWeaponIDs() {
+        return weaponIDs;
+    }
+
+    /**
+     * sets weaponIDs
+     * @param weaponIDs
+     */
+    public void setWeaponIDs(String weaponIDs) {
+        this.weaponIDs = weaponIDs;
     }
 }

@@ -2,6 +2,7 @@ package ch.bzz.militaryranking.service;
 
 import ch.bzz.militaryranking.data.DataHandler;
 import ch.bzz.militaryranking.model.Country;
+import ch.bzz.militaryranking.model.Vehicle;
 
 import javax.validation.Valid;
 import javax.ws.rs.*;
@@ -10,6 +11,7 @@ import javax.ws.rs.core.Response;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Vector;
 
 /**
  * country service
@@ -106,9 +108,18 @@ public class CountryService {
     public Response insertCountry(
             @Valid @BeanParam Country country
     ){
-        DataHandler.insertCountry(country);
+        int httpStatus = 200;
+        country.setCountryID(++cntr);
+        if (getVehiclesFromID(country) != null){
+            country.setVehicles(getVehiclesFromID(country));
+            DataHandler.insertCountry(country);
+        }
+        else{
+            httpStatus = 400;
+        }
+
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity("")
                 .build();
     }
@@ -147,16 +158,38 @@ public class CountryService {
     ){
         int httpStatus = 200;
         Country oldCountry = DataHandler.readCountryByID(Integer.toString(country.getCountryID()));
-        if (oldCountry != null){
+        if (oldCountry != null && getVehiclesFromID(country) != null){
             oldCountry.setName(country.getName());
+            oldCountry.setVehicles(getVehiclesFromID(country));
             DataHandler.updateCountry();
         }
-        else{
+        else if (oldCountry == null){
             httpStatus = 404;
+        }
+        else{
+            httpStatus = 400;
         }
         return Response
                 .status(httpStatus)
                 .entity("")
                 .build();
     }
+
+    /**
+     * returns country list from countryID
+     * @param country
+     * @return
+     */
+    public Vector<Vehicle> getVehiclesFromID(Country country){
+        String[] vehicleIDs = country.getVehicleIDs().split("\\s+");
+        Vector<Vehicle> vehicles = new Vector<Vehicle>();
+        for (int i = 0; i < vehicleIDs.length; i++){
+            if (DataHandler.readVehicleByID(vehicleIDs[i]) == null){
+                return null;
+            }
+            vehicles.add(DataHandler.readVehicleByID(vehicleIDs[i]));
+        }
+        return vehicles;
+    }
 }
+

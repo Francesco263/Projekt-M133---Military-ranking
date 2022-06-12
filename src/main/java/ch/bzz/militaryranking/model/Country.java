@@ -1,4 +1,5 @@
 package ch.bzz.militaryranking.model;
+import ch.bzz.militaryranking.data.DataHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.validation.constraints.NotEmpty;
@@ -8,15 +9,21 @@ import java.util.Vector;
 
 public class Country {
 
-    private int countryID;
     private int militaryPower;
-    @JsonIgnore
     private Vector<Vehicle> vehicles;
+
+    @FormParam("countryID")
+    private int countryID;
 
     @FormParam("name")
     @NotEmpty
-    @Size(min=5, max=40)
+    @Size(min=2, max=40)
     private String name;
+
+    @FormParam("vehicleIDs")
+    @JsonIgnore
+    @NotEmpty
+    private String vehicleIDs;
 
     /**
      * gets name
@@ -51,19 +58,36 @@ public class Country {
     }
 
     /**
-     * sets military power
-     * @param militaryPower
-     */
-    public void setMilitaryPower(int militaryPower) {
-        this.militaryPower = militaryPower;
-    }
-
-    /**
-     * sets vehicles
+     * sets vehicles and its attributes
+     * calculates the militaryPower based on the vehicles
      * @param vehicles
      */
     public void setVehicles(Vector<Vehicle> vehicles) {
+        for (int i = 0; i < vehicles.size(); i++){
+            Vehicle vehicle = DataHandler.readVehicleByID(Integer.toString(vehicles.get(i).getVehicleID()));
+            vehicles.get(i).setRegistrationDate(vehicle.getRegistrationDate());
+            vehicles.get(i).setVehicleName(vehicle.getVehicleName());
+            vehicles.get(i).setQuantity(vehicle.getQuantity());
+            vehicles.get(i).setBattlepoints(vehicle.getBattlepoints());
+            militaryPower = militaryPower + (vehicles.get(i).getBattlepoints() * vehicles.get(i).getQuantity());
+        }
         this.vehicles = vehicles;
+    }
+
+    /**
+     * gets vehicleIds
+     * @return
+     */
+    public String getVehicleIDs() {
+        return vehicleIDs;
+    }
+
+    /**
+     * sets vehicleIDs
+     * @param vehicleIDs
+     */
+    public void setVehicleIDs(String vehicleIDs) {
+        this.vehicleIDs = vehicleIDs;
     }
 
     /**

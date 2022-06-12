@@ -1,16 +1,16 @@
-[
-    {
-        "name": "Germany",
-        "vehicles": [{
-                "vehicleName" : "Leopard 2A5"
-        },  {
-                "vehicleName" : "F222"
-        }] 
-    },
-    {
-        "name": "America",
-        "vehicles": [{
-                "vehicleName" : "F-22 Raptor"
-        }] 
-    }
-]
+[ {
+  "militaryPower" : 0,
+  "vehicles" : null,
+  "countryID" : 1,
+  "name" : "Test"
+}, {
+  "militaryPower" : 0,
+  "vehicles" : null,
+  "countryID" : 2,
+  "name" : "Test"
+}, {
+  "militaryPower" : 0,
+  "vehicles" : null,
+  "countryID" : 3,
+  "name" : "Test"
+} ]

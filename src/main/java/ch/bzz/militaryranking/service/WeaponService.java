@@ -147,7 +147,6 @@ public class WeaponService {
     public Response updateWeapon(
             @Valid @BeanParam Weapon weapon
     ){
-        System.out.println(weapon.getWeaponID());
         int httpStatus = 200;
         Weapon oldWeapon = DataHandler.readWeaponByID(Integer.toString(weapon.getWeaponID()));
         if (oldWeapon != null){

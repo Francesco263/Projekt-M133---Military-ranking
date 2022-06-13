@@ -39,7 +39,7 @@ public class Vehicle {
 
     @FormParam("weaponIDs")
     @NotEmpty
-    @Pattern(regexp = "^(\\d\\s)*(\\d)$")
+    @Pattern(regexp = "^(\\d+\\s)*(\\d+)$")
     private String weaponIDs;
 
     /**

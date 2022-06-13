@@ -23,7 +23,7 @@ public class Country {
 
     @FormParam("vehicleIDs")
     @NotEmpty
-    @Pattern(regexp = "^(\\d\\s)*(\\d)$")
+    @Pattern(regexp = "^(\\d+\\s)*(\\d+)$")
     private String vehicleIDs;
 
     /**

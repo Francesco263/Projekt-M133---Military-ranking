@@ -3,15 +3,13 @@ package ch.bzz.militaryranking.model;
 import ch.bzz.militaryranking.data.DataHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import javax.ws.rs.FormParam;
 import java.util.Vector;
 
 public class Vehicle {
 
+    @JsonIgnore
     private Vector<Weapon> weapons;
 
     @FormParam("vehicleID")
@@ -29,17 +27,19 @@ public class Vehicle {
 
     @FormParam("quantity")
     @NotNull
-    //@Range(min=5, max=40)
+    @Min(1)
+    @Max(50000)
     private int quantity;
 
     @FormParam("battlepoints")
     @NotNull
-    //@Range(min=5, max=40)
+    @Min(1)
+    @Max(100000)
     private int battlepoints;
 
     @FormParam("weaponIDs")
-    @JsonIgnore
     @NotEmpty
+    @Pattern(regexp = "^(\\d\\s)*(\\d)$")
     private String weaponIDs;
 
     /**
@@ -111,6 +111,9 @@ public class Vehicle {
             battlepoints = battlepoints + (weapons.get(i).getBattlepoints() * quantity);
         };
         this.weapons = weapons;
+        DataHandler.updateWeapon();
+        DataHandler.updateVehicle();
+        DataHandler.updateCountry();
     }
 
 

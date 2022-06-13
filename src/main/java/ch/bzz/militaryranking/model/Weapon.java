@@ -20,6 +20,8 @@ public class Weapon {
 
     @FormParam("battlepoints")
     @NotNull
+    @Min(1)
+    @Max(100000)
     private int battlepoints;
 
     /**

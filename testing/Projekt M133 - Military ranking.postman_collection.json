@@ -41,6 +41,165 @@
 			"response": []
 		},
 		{
+			"name": "1.6 insert new Weapon",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "secureCode",
+							"value": "123.abcd.abcd.1",
+							"type": "text"
+						},
+						{
+							"key": "weaponName",
+							"value": "Test",
+							"type": "text"
+						},
+						{
+							"key": "battlepoints",
+							"value": "100",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"weapon",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.7 insert new vehicle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "registrationDate",
+							"value": "01.01.2000",
+							"type": "text"
+						},
+						{
+							"key": "vehicleName",
+							"value": "Test",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "10",
+							"type": "text"
+						},
+						{
+							"key": "battlepoints",
+							"value": "2000",
+							"type": "text"
+						},
+						{
+							"key": "weaponIDs",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3.7 insert new country",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "Test",
+							"type": "text"
+						},
+						{
+							"key": "vehicleIDs",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "1.0 list all weapons",
 			"event": [
 				{
@@ -89,14 +248,7 @@
 						"exec": [
 							"pm.test(\"Status test\", function(){",
 							"    pm.response.to.have.status(200);",
-							"});",
-							"",
-							"pm.test(\"validate response\", function(){",
-							"    pm.response.to.be.json;",
-							"    const responseJson = pm.response.json();",
-							"    pm.expect(responseJson.weaponName).to.eql(\"AIM-9X\")",
-							"    pm.expect(responseJson.battlepoints).to.eql(150);",
-							"})"
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -106,7 +258,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/read?weaponName=AIM-9X",
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/read?weaponID=2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -120,8 +272,8 @@
 					],
 					"query": [
 						{
-							"key": "weaponName",
-							"value": "AIM-9X"
+							"key": "weaponID",
+							"value": "2"
 						}
 					]
 				}
@@ -147,7 +299,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/read?weaponName=AIM-9",
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/read?weaponID=99",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -161,8 +313,8 @@
 					],
 					"query": [
 						{
-							"key": "weaponName",
-							"value": "AIM-9"
+							"key": "weaponID",
+							"value": "99"
 						}
 					]
 				}
@@ -296,63 +448,7 @@
 			"response": []
 		},
 		{
-			"name": "1.6 insert new Weapon",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status test\", function(){",
-							"    pm.response.to.have.status(200);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "secureCode",
-							"value": "123.abcd.abcd.9",
-							"type": "text"
-						},
-						{
-							"key": "weaponName",
-							"value": "AIM19-X",
-							"type": "text"
-						},
-						{
-							"key": "battlepoints",
-							"value": "144",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"Projekt_M133_Military_ranking-1.0",
-						"resource",
-						"weapon",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "1.8 update weapon",
+			"name": "1.7 update weapon",
 			"event": [
 				{
 					"listen": "test",
@@ -375,22 +471,22 @@
 					"urlencoded": [
 						{
 							"key": "weaponID",
-							"value": "1",
+							"value": "2",
 							"type": "text"
 						},
 						{
 							"key": "secureCode",
-							"value": "738.dhfu.ejdj.7",
+							"value": "123.test.test.1",
 							"type": "text"
 						},
 						{
 							"key": "weaponName",
-							"value": "AIM4-X",
+							"value": "Test",
 							"type": "text"
 						},
 						{
 							"key": "battlepoints",
-							"value": "110",
+							"value": "100",
 							"type": "text"
 						}
 					]
@@ -407,48 +503,6 @@
 						"resource",
 						"weapon",
 						"update"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "1.7 delete weapon",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status test\", function(){",
-							"    pm.response.to.have.status(200);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/delete?weaponID=1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"Projekt_M133_Military_ranking-1.0",
-						"resource",
-						"weapon",
-						"delete"
-					],
-					"query": [
-						{
-							"key": "weaponID",
-							"value": "1"
-						}
 					]
 				}
 			},
@@ -741,6 +795,15 @@
 					"listen": "prerequest",
 					"script": {
 						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
 							"pm.test(\"Status test\", function(){",
 							"    pm.response.to.have.status(400);",
 							"});",
@@ -758,7 +821,7 @@
 					"urlencoded": [
 						{
 							"key": "secureCode",
-							"value": "123.bdze.bdzf.1",
+							"value": "123.abcd.abcd.9",
 							"type": "text"
 						},
 						{
@@ -903,6 +966,118 @@
 			"response": []
 		},
 		{
+			"name": "1.17 battlepoints too small",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "secureCode",
+							"value": "123.bdze.bdzf.1",
+							"type": "text"
+						},
+						{
+							"key": "weaponName",
+							"value": "Test",
+							"type": "text"
+						},
+						{
+							"key": "battlepoints",
+							"value": "0",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"weapon",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1.18 battlepoints too large",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "secureCode",
+							"value": "123.bdze.bdzf.1",
+							"type": "text"
+						},
+						{
+							"key": "weaponName",
+							"value": "Test",
+							"type": "text"
+						},
+						{
+							"key": "battlepoints",
+							"value": "200000",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"weapon",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "2.0 list all vehicles",
 			"event": [
 				{
@@ -952,13 +1127,7 @@
 							"pm.test(\"Status test\", function(){",
 							"    pm.response.to.have.status(200);",
 							"});",
-							"",
-							"pm.test(\"validate response\", function(){",
-							"    pm.response.to.be.json;",
-							"    const responseJson = pm.response.json();",
-							"    pm.expect(responseJson.vehicleName).to.eql(\"F-22 Raptor\")",
-							"    pm.expect(responseJson.battlepoints).to.eql(25000);",
-							"})"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -968,7 +1137,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/read?vehicleName=F-22 Raptor",
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/read?vehicleID=2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -982,8 +1151,8 @@
 					],
 					"query": [
 						{
-							"key": "vehicleName",
-							"value": "F-22 Raptor"
+							"key": "vehicleID",
+							"value": "2"
 						}
 					]
 				}
@@ -1009,7 +1178,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/read?vehicleName=F-22 Rapto",
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/read?vehicleID=99",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -1023,8 +1192,8 @@
 					],
 					"query": [
 						{
-							"key": "vehicleName",
-							"value": "F-22 Rapto"
+							"key": "vehicleID",
+							"value": "99"
 						}
 					]
 				}
@@ -1199,7 +1368,7 @@
 			"response": []
 		},
 		{
-			"name": "2.7 insert new vehicle",
+			"name": "2.8 update vehicle",
 			"event": [
 				{
 					"listen": "test",
@@ -1221,136 +1390,33 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
+							"key": "vehicleID",
+							"value": "2",
+							"type": "text"
+						},
+						{
 							"key": "registrationDate",
-							"value": "14.07.2022",
+							"value": "07.07.2000",
 							"type": "text"
 						},
 						{
 							"key": "vehicleName",
-							"value": "Hercules C-130",
+							"value": "Test",
 							"type": "text"
 						},
 						{
 							"key": "quantity",
-							"value": "15",
+							"value": "20",
 							"type": "text"
 						},
 						{
 							"key": "battlepoints",
-							"value": "235",
+							"value": "14000",
 							"type": "text"
 						},
 						{
 							"key": "weaponIDs",
-							"value": "1",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"Projekt_M133_Military_ranking-1.0",
-						"resource",
-						"vehicle",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "2.8 delete vehicle",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status test\", function(){",
-							"    pm.response.to.have.status(200);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/delete?vehicleID=1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"Projekt_M133_Military_ranking-1.0",
-						"resource",
-						"vehicle",
-						"delete"
-					],
-					"query": [
-						{
-							"key": "vehicleID",
-							"value": "1"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "2.9 update vehicle",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status test\", function(){",
-							"    pm.response.to.have.status(200);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "vehicleID",
-							"value": "1",
-							"type": "text"
-						},
-						{
-							"key": "registrationDate",
-							"value": "15.07.1999",
-							"type": "text"
-						},
-						{
-							"key": "vehicleName",
-							"value": "Hercules C-140",
-							"type": "text"
-						},
-						{
-							"key": "quantity",
-							"value": "16",
-							"type": "text"
-						},
-						{
-							"key": "battlepoints",
-							"value": "13000",
+							"value": "2",
 							"type": "text"
 						}
 					]
@@ -1967,7 +2033,139 @@
 			"response": []
 		},
 		{
-			"name": "2.19 battlepoints not existing",
+			"name": "2.19 quantity too small",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "registrationDate",
+							"value": "12.04.2022",
+							"type": "text"
+						},
+						{
+							"key": "vehicleName",
+							"value": "Test",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "battlepoints",
+							"value": "235",
+							"type": "text"
+						},
+						{
+							"key": "weaponIDs",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.20 quantity too large",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "registrationDate",
+							"value": "12.04.2022",
+							"type": "text"
+						},
+						{
+							"key": "vehicleName",
+							"value": "Test",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "100000",
+							"type": "text"
+						},
+						{
+							"key": "battlepoints",
+							"value": "235",
+							"type": "text"
+						},
+						{
+							"key": "weaponIDs",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.21 battlepoints not existing",
 			"event": [
 				{
 					"listen": "test",
@@ -2033,7 +2231,7 @@
 			"response": []
 		},
 		{
-			"name": "2.20 battlepoints invalid format",
+			"name": "2.22 battlepoints invalid format",
 			"event": [
 				{
 					"listen": "test",
@@ -2099,7 +2297,139 @@
 			"response": []
 		},
 		{
-			"name": "2.21 weaponIDs invalid",
+			"name": "2.23 battlepoints too small",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "registrationDate",
+							"value": "12.04.2022",
+							"type": "text"
+						},
+						{
+							"key": "vehicleName",
+							"value": "Test",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "battlepoints",
+							"value": "0",
+							"type": "text"
+						},
+						{
+							"key": "weaponIDs",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.24 battlepoints too large",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(400);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "registrationDate",
+							"value": "12.04.2022",
+							"type": "text"
+						},
+						{
+							"key": "vehicleName",
+							"value": "Test",
+							"type": "text"
+						},
+						{
+							"key": "quantity",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "battlepoints",
+							"value": "200000",
+							"type": "text"
+						},
+						{
+							"key": "weaponIDs",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.25 weaponIDs invalid",
 			"event": [
 				{
 					"listen": "test",
@@ -2165,7 +2495,7 @@
 			"response": []
 		},
 		{
-			"name": "2.22 weaponIDs not existing",
+			"name": "2.26 weaponIDs not existing",
 			"event": [
 				{
 					"listen": "test",
@@ -2231,7 +2561,7 @@
 			"response": []
 		},
 		{
-			"name": "2.23 weaponIDs invalid format",
+			"name": "2.27 weaponIDs invalid format",
 			"event": [
 				{
 					"listen": "test",
@@ -2346,13 +2676,7 @@
 							"pm.test(\"Status test\", function(){",
 							"    pm.response.to.have.status(200);",
 							"});",
-							"",
-							"pm.test(\"validate response\", function(){",
-							"    pm.response.to.be.json;",
-							"    const responseJson = pm.response.json();",
-							"    pm.expect(responseJson.name).to.eql(\"America\")",
-							"    pm.expect(responseJson.militaryPower).to.eql(0);",
-							"})"
+							""
 						],
 						"type": "text/javascript"
 					}
@@ -2362,7 +2686,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/read?name=America",
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/read?countryID=2",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -2376,8 +2700,8 @@
 					],
 					"query": [
 						{
-							"key": "name",
-							"value": "America"
+							"key": "countryID",
+							"value": "2"
 						}
 					]
 				}
@@ -2403,7 +2727,7 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/read?name=Americ",
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/read?countryID=99",
 					"protocol": "http",
 					"host": [
 						"localhost"
@@ -2417,8 +2741,8 @@
 					],
 					"query": [
 						{
-							"key": "name",
-							"value": "Americ"
+							"key": "countryID",
+							"value": "99"
 						}
 					]
 				}
@@ -2468,48 +2792,6 @@
 			"response": []
 		},
 		{
-			"name": "3.4 sort country by military power",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Status test\", function(){",
-							"    pm.response.to.have.status(200);",
-							"});",
-							""
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/sortList?sortBy=militaryPower",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"Projekt_M133_Military_ranking-1.0",
-						"resource",
-						"country",
-						"sortList"
-					],
-					"query": [
-						{
-							"key": "sortBy",
-							"value": "militaryPower"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
 			"name": "3.5 sortBy not found",
 			"event": [
 				{
@@ -2552,7 +2834,49 @@
 			"response": []
 		},
 		{
-			"name": "2.7 insert new country",
+			"name": "3.4 sort country by military power",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/sortList?sortBy=militaryPower",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"sortList"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "militaryPower"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3.8 update country",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -2560,78 +2884,18 @@
 					"mode": "urlencoded",
 					"urlencoded": [
 						{
+							"key": "countryID",
+							"value": "2",
+							"type": "text"
+						},
+						{
 							"key": "name",
-							"value": "Russia",
+							"value": "Test",
 							"type": "text"
 						},
 						{
 							"key": "vehicleIDs",
-							"value": "1",
-							"type": "text"
-						}
-					]
-				},
-				"url": {
-					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/create",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"Projekt_M133_Military_ranking-1.0",
-						"resource",
-						"country",
-						"create"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "2.8 delete country",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/delete?countryID=1",
-					"protocol": "http",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"Projekt_M133_Military_ranking-1.0",
-						"resource",
-						"country",
-						"delete"
-					],
-					"query": [
-						{
-							"key": "countryID",
-							"value": "1"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "2.9 update country",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "urlencoded",
-					"urlencoded": [
-						{
-							"key": "countryID",
-							"value": "4",
-							"type": "text"
-						},
-						{
-							"key": "name",
-							"value": "Germany",
+							"value": "2",
 							"type": "text"
 						}
 					]
@@ -2654,7 +2918,7 @@
 			"response": []
 		},
 		{
-			"name": "2.10 name too small",
+			"name": "3.10 name too small",
 			"event": [
 				{
 					"listen": "test",
@@ -2705,7 +2969,7 @@
 			"response": []
 		},
 		{
-			"name": "2.11 name too large",
+			"name": "3.11 name too large",
 			"event": [
 				{
 					"listen": "test",
@@ -2756,7 +3020,7 @@
 			"response": []
 		},
 		{
-			"name": "2.12 vehicleIDs invalid",
+			"name": "3.12 vehicleIDs invalid",
 			"event": [
 				{
 					"listen": "test",
@@ -2807,7 +3071,7 @@
 			"response": []
 		},
 		{
-			"name": "2.13 vehicleIDs not existing",
+			"name": "3.13 vehicleIDs not existing",
 			"event": [
 				{
 					"listen": "test",
@@ -2858,7 +3122,7 @@
 			"response": []
 		},
 		{
-			"name": "2.14 vehicleIDs invalid format",
+			"name": "3.14 vehicleIDs invalid format",
 			"event": [
 				{
 					"listen": "test",
@@ -2903,6 +3167,118 @@
 						"resource",
 						"country",
 						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "1.8 delete weapon",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/delete?weaponID=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"weapon",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "weaponID",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2.9 delete vehicle",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/delete?vehicleID=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "vehicleID",
+							"value": "2"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3.9 delete country",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/delete?countryID=2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "countryID",
+							"value": "2"
+						}
 					]
 				}
 			},

@@ -130,6 +130,7 @@ public class WeaponService {
         if (!DataHandler.deleteWeapon(weaponID)){
             httpStatus = 410;
         }
+        DataHandler.updateVehicle();
         return Response
                 .status(httpStatus)
                 .entity("")

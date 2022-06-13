@@ -187,7 +187,9 @@ public class CountryService {
             if (DataHandler.readVehicleByID(vehicleIDs[i]) == null){
                 return null;
             }
-            vehicles.add(DataHandler.readVehicleByID(vehicleIDs[i]));
+            Vehicle vehicle = new Vehicle();
+            vehicle.setVehicleID(Integer.parseInt(vehicleIDs[i]));
+            vehicles.add(vehicle);
         }
         return vehicles;
     }

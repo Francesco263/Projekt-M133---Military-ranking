@@ -1,21 +1,6 @@
 [ {
-  "weaponID" : 3,
-  "secureCode" : "123.bdze.bdzf.1",
-  "weaponName" : "Test",
-  "battlepoints" : 0
-}, {
-  "weaponID" : 2,
-  "secureCode" : "123.abcd.abcd.9",
+  "weaponID" : 1,
+  "secureCode" : "914.ooli.uugh.7",
   "weaponName" : "AIM19-X",
-  "battlepoints" : 144
-}, {
-  "weaponID" : 4,
-  "secureCode" : "123.abcd.abcd.9",
-  "weaponName" : "AIM19-X",
-  "battlepoints" : 144
-}, {
-  "weaponID" : 5,
-  "secureCode" : "123.bdze.bdzf.1",
-  "weaponName" : "Test",
-  "battlepoints" : 0
+  "battlepoints" : 230
 } ]

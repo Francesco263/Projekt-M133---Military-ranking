@@ -1,8 +1,8 @@
 package ch.bzz.militaryranking.model;
 import ch.bzz.militaryranking.data.DataHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
 import javax.ws.rs.FormParam;
 import java.util.Vector;
@@ -10,6 +10,7 @@ import java.util.Vector;
 public class Country {
 
     private int militaryPower;
+    @JsonIgnore
     private Vector<Vehicle> vehicles;
 
     @FormParam("countryID")
@@ -21,8 +22,8 @@ public class Country {
     private String name;
 
     @FormParam("vehicleIDs")
-    @JsonIgnore
     @NotEmpty
+    @Pattern(regexp = "^(\\d\\s)*(\\d)$")
     private String vehicleIDs;
 
     /**
@@ -64,12 +65,18 @@ public class Country {
      */
     public void setVehicles(Vector<Vehicle> vehicles) {
         for (int i = 0; i < vehicles.size(); i++){
-            Vehicle vehicle = DataHandler.readVehicleByID(Integer.toString(vehicles.get(i).getVehicleID()));
-            vehicles.get(i).setRegistrationDate(vehicle.getRegistrationDate());
-            vehicles.get(i).setVehicleName(vehicle.getVehicleName());
-            vehicles.get(i).setQuantity(vehicle.getQuantity());
-            vehicles.get(i).setBattlepoints(vehicle.getBattlepoints());
-            militaryPower = militaryPower + (vehicles.get(i).getBattlepoints() * vehicles.get(i).getQuantity());
+            for (int y = 0; y < DataHandler.readAllVehicles().size(); y++){
+                if (vehicles.get(i).getVehicleID() == DataHandler.readAllVehicles().get(y).getVehicleID()){
+                    vehicles.get(i).setRegistrationDate(DataHandler.readAllVehicles().get(y).getRegistrationDate());
+                    vehicles.get(i).setVehicleName(DataHandler.readAllVehicles().get(y).getVehicleName());
+                    vehicles.get(i).setQuantity(DataHandler.readAllVehicles().get(y).getQuantity());
+                    vehicles.get(i).setBattlepoints(DataHandler.readAllVehicles().get(y).getBattlepoints());
+                    militaryPower = militaryPower + (vehicles.get(i).getBattlepoints() * vehicles.get(i).getQuantity());
+                }
+            }
+            DataHandler.updateWeapon();
+            DataHandler.updateVehicle();
+            DataHandler.updateCountry();
         }
         this.vehicles = vehicles;
     }

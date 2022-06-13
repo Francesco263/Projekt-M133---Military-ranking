@@ -9,6 +9,7 @@ import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.crypto.Data;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -144,11 +145,11 @@ public class VehicleService {
     public Response deleteVehicle(
             @QueryParam("vehicleID") String vehicleID
     ){
-        DataHandler.updateCountry();
         int httpStatus = 200;
         if (!DataHandler.deleteVehicle(vehicleID)){
             httpStatus = 410;
         }
+        DataHandler.updateCountry();
         return Response
                 .status(httpStatus)
                 .entity("")
@@ -200,7 +201,9 @@ public class VehicleService {
             if (DataHandler.readWeaponByID(weaponIDs[i]) == null){
                 return null;
             }
-            weapons.add(DataHandler.readWeaponByID(weaponIDs[i]));
+            Weapon weapon = new Weapon();
+            weapon.setWeaponID(Integer.parseInt(weaponIDs[i]));
+            weapons.add(weapon);
         }
         return weapons;
     }

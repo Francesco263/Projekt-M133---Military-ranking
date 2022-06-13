@@ -1,16 +1,6 @@
 [ {
-  "militaryPower" : 0,
-  "vehicles" : null,
+  "militaryPower" : 55275,
   "countryID" : 1,
-  "name" : "Test"
-}, {
-  "militaryPower" : 0,
-  "vehicles" : null,
-  "countryID" : 2,
-  "name" : "Test"
-}, {
-  "militaryPower" : 0,
-  "vehicles" : null,
-  "countryID" : 3,
-  "name" : "Test"
+  "name" : "America",
+  "vehicleIDs" : "1"
 } ]

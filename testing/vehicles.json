@@ -1,13 +1,8 @@
 [ {
-  "weapons" : [ {
-    "weaponID" : 1,
-    "secureCode" : "123.abcd.abcd.9",
-    "weaponName" : "AIM19-X",
-    "battlepoints" : 144
-  } ],
-  "vehicleID" : 2,
-  "registrationDate" : "12.04.2022",
-  "vehicleName" : "Test",
-  "quantity" : 13,
-  "battlepoints" : 1887
+  "vehicleID" : 1,
+  "registrationDate" : "14.07.2004",
+  "vehicleName" : "Hercules C-130",
+  "quantity" : 15,
+  "battlepoints" : 3685,
+  "weaponIDs" : "1"
 } ]

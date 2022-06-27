@@ -3,7 +3,6 @@ package ch.bzz.militaryranking.service;
 import ch.bzz.militaryranking.data.DataHandler;
 import ch.bzz.militaryranking.model.Country;
 import ch.bzz.militaryranking.model.Vehicle;
-
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -26,10 +25,20 @@ public class CountryService {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listCountry(){
-        List<Country> countryList = DataHandler.readAllCountries();
+    public Response listCountry(
+            @CookieParam("userRole") String userRole
+    ){
+        List<Country> countryList = null;
+        int httpStatus;
+        if (DataHandler.authenticate(userRole, 2)){
+            httpStatus = 200;
+            countryList = DataHandler.readAllCountries();
+        }
+        else{
+            httpStatus =  403;
+        }
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity(countryList)
                 .build();
     }
@@ -41,16 +50,22 @@ public class CountryService {
     @Path("read")
     @Produces(MediaType.APPLICATION_JSON)
     public Response readCountry(
+            @CookieParam("userRole") String userRole,
             @QueryParam("countryID") String countryID
     ){
-        Country country = DataHandler.readCountryByID(countryID);
         int httpStatus;
-        if (country == null){
-            httpStatus = 404;
+        Country country = new Country();
+        if (DataHandler.authenticate(userRole, 2)){
+            httpStatus = 200;
+             country = DataHandler.readCountryByID(countryID);
+            if (country == null){
+                httpStatus = 404;
+            }
         }
         else{
-            httpStatus = 200;
+            httpStatus =  403;
         }
+
         return Response
                 .status(httpStatus)
                 .entity(country)
@@ -64,37 +79,44 @@ public class CountryService {
     @Path("sortList")
     @Produces(MediaType.APPLICATION_JSON)
     public Response sortWeapon(
+            @CookieParam("userRole") String userRole,
             @QueryParam("sortBy") String sort
     ){
-        List<Country> countryList = DataHandler.readAllCountries();
-        if(sort != null && sort.equals("name")){
-            Collections.sort(countryList, new Comparator<Country>() {
-                @Override
-                public int compare(Country country, Country t1) {
-                    return country.getName().compareTo(t1.getName());
-                }
-            });
+        if (DataHandler.authenticate(userRole, 2)){
+            List<Country> countryList = DataHandler.readAllCountries();
+            if(sort != null && sort.equals("name")){
+                Collections.sort(countryList, new Comparator<Country>() {
+                    @Override
+                    public int compare(Country country, Country t1) {
+                        return country.getName().compareTo(t1.getName());
+                    }
+                });
+            }
+            else if (sort!= null && sort.equals("militaryPower")){
+                Collections.sort(countryList, new Comparator<Country>() {
+                    @Override
+                    public int compare(Country country, Country t1) {
+                        return country.getMilitaryPower()-(t1.getMilitaryPower());
+                    }
+                });
+            }
+            if (sort.contains("militaryPower") || sort.contains("name")){
+                return Response
+                        .status(200)
+                        .entity(countryList)
+                        .build();
+            }
+            else{
+                return Response
+                        .status(404)
+                        .entity(null)
+                        .build();
+            }
         }
-        else if (sort!= null && sort.equals("militaryPower")){
-            Collections.sort(countryList, new Comparator<Country>() {
-                @Override
-                public int compare(Country country, Country t1) {
-                    return country.getMilitaryPower()-(t1.getMilitaryPower());
-                }
-            });
-        }
-        if (sort.contains("militaryPower") || sort.contains("name")){
-            return Response
-                    .status(200)
-                    .entity(countryList)
-                    .build();
-        }
-        else{
-            return Response
-                    .status(404)
-                    .entity(null)
-                    .build();
-        }
+        return Response
+                .status(403)
+                .entity("")
+                .build();
     }
 
     /**
@@ -106,16 +128,22 @@ public class CountryService {
     @Path("create")
     @Produces(MediaType.TEXT_PLAIN)
     public Response insertCountry(
+            @CookieParam("userRole") String userRole,
             @Valid @BeanParam Country country
     ){
         int httpStatus = 200;
-        country.setCountryID(++cntr);
-        if (getVehiclesFromID(country) != null){
-            country.setVehicles(getVehiclesFromID(country));
-            DataHandler.insertCountry(country);
+        if (DataHandler.authenticate(userRole, 1)){
+            country.setCountryID(++cntr);
+            if (getVehiclesFromID(country) != null){
+                country.setVehicles(getVehiclesFromID(country));
+                DataHandler.insertCountry(country);
+            }
+            else{
+                httpStatus = 400;
+            }
         }
         else{
-            httpStatus = 400;
+            httpStatus = 403;
         }
 
         return Response
@@ -133,11 +161,17 @@ public class CountryService {
     @Path("delete")
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteCountry(
+            @CookieParam("userRole") String userRole,
             @QueryParam("countryID") String countryID
     ){
         int httpStatus = 200;
-        if (!DataHandler.deleteCountry(countryID)){
-            httpStatus = 410;
+        if (DataHandler.authenticate(userRole, 1)){
+            if (!DataHandler.deleteCountry(countryID)){
+                httpStatus = 410;
+            }
+        }
+        else{
+            httpStatus = 403;
         }
         return Response
                 .status(httpStatus)
@@ -154,20 +188,26 @@ public class CountryService {
     @Path("update")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateCountry(
+            @CookieParam("userRole") String userRole,
             @Valid @BeanParam Country country
     ){
         int httpStatus = 200;
-        Country oldCountry = DataHandler.readCountryByID(Integer.toString(country.getCountryID()));
-        if (oldCountry != null && getVehiclesFromID(country) != null){
-            oldCountry.setName(country.getName());
-            oldCountry.setVehicles(getVehiclesFromID(country));
-            DataHandler.updateCountry();
-        }
-        else if (oldCountry == null){
-            httpStatus = 404;
+        if (DataHandler.authenticate(userRole, 1)){
+            Country oldCountry = DataHandler.readCountryByID(Integer.toString(country.getCountryID()));
+            if (oldCountry != null && getVehiclesFromID(country) != null){
+                oldCountry.setName(country.getName());
+                oldCountry.setVehicles(getVehiclesFromID(country));
+                DataHandler.updateCountry();
+            }
+            else if (oldCountry == null){
+                httpStatus = 404;
+            }
+            else{
+                httpStatus = 400;
+            }
         }
         else{
-            httpStatus = 400;
+            httpStatus = 403;
         }
         return Response
                 .status(httpStatus)

@@ -1,0 +1,14 @@
+[
+  {
+    "userUUID" : "1",
+    "username" : "testUser",
+    "role" : "admin",
+    "password" : "123abc"
+  },
+  {
+    "userUUID" : "2",
+    "username" : "testUser2",
+    "role" : "user",
+    "password" : "123abc"
+  }
+]

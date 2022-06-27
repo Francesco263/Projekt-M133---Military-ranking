@@ -1,9 +1,12 @@
 package ch.bzz.militaryranking.data;
 
+import ch.bzz.militaryranking.model.User;
 import ch.bzz.militaryranking.model.Vehicle;
 import ch.bzz.militaryranking.model.Country;
 import ch.bzz.militaryranking.model.Weapon;
 import ch.bzz.militaryranking.service.Config;
+import ch.bzz.militaryranking.util.AESEncrypt;
+import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;
@@ -23,6 +26,7 @@ public class DataHandler {
     private static List<Country> countryList;
     private static List<Vehicle> vehicleList;
     private static List<Weapon> weaponList;
+    private static List<User> userList;
 
     /**
      * private constructor defeats instantiation
@@ -415,5 +419,127 @@ public class DataHandler {
             }
         }
         return maxID;
+    }
+
+    /**
+     * reads the user role
+     * @param username
+     * @param password
+     * @return
+     */
+    public String readUserRole(String username, String password) {
+        for (User user : getUserList()) {
+            if (user.getUsername().equals(username) &&
+                    user.getPassword().equals(password)) {
+                return user.getUsername();
+            }
+        }
+        return "guest";
+    }
+
+    /**
+     * reads the users from the JSON-file
+     */
+    private static void readUserJSON() {
+        try {
+            byte[] jsonData = Files.readAllBytes(
+                    Paths.get(
+                            Config.getProperty("userJSON")
+                    )
+            );
+            ObjectMapper objectMapper = new ObjectMapper();
+            User[] users = objectMapper.readValue(jsonData, User[].class);
+            for (User user : users) {
+                getUserList().add(user);
+            }
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    /**
+     * gets userList
+     *
+     * @return value of userList
+     */
+
+    public static List<User> getUserList() {
+        if (DataHandler.userList == null) {
+            DataHandler.setUserList(new ArrayList<>());
+            readUserJSON();
+        }
+        return userList;
+    }
+
+    /**
+     * Finds a user
+     * @param username
+     * @param password
+     * @return
+     */
+
+    public static User findUser(String username, String password){
+        User user = new User();
+        List<User> userList = readJson();
+
+        for (User entry: userList){
+            if (entry.getUsername().equals(username) && entry.getPassword().equals(password)){
+                user = entry;
+            }
+        }
+        return user;
+    }
+
+    /**
+     * reads User json file
+     * @return
+     */
+
+    private static List<User> readJson(){
+        List<User> userList = new ArrayList<>();
+        try{
+            byte[] jsonData = Files.readAllBytes(Paths.get(Config.getProperty("userJSON")));
+            ObjectMapper objectMapper = new ObjectMapper();
+            User[] users = objectMapper.readValue(jsonData, User[].class);
+            for (User user : users){
+                userList.add(user);
+            }
+        } catch(IOException e){
+            e.printStackTrace();
+        }
+        return userList;
+    }
+
+    /**
+     * sets userList
+     *
+     * @param userList the value to set
+     */
+
+    public static void setUserList(List<User> userList) {
+        DataHandler.userList = userList;
+    }
+
+
+    /**
+     * returns boolean if user has supposed role
+     * @param userRole
+     * @param role
+     * @return
+     */
+    public static boolean authenticate(String userRole, int role){
+        if (userRole != null){
+            String compare = AESEncrypt.decrypt(userRole);
+            if (compare == null){
+                return false;
+            }
+            if (role == 2 && (compare.equals("user") || compare.equals("admin"))){
+                return true;
+            }
+            else if (role == 1 && compare.equals("admin")){
+                return true;
+            }
+        }
+        return false;
     }
 }

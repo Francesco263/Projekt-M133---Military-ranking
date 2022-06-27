@@ -41,6 +41,159 @@
 			"response": []
 		},
 		{
+			"name": "4.1 Login: username incorrect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "Test",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123abc",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.2 Login: password incorrect",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(404);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "testUser",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123abcd",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.3 Login: admin login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "testUser",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123abc",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "1.6 insert new Weapon",
 			"event": [
 				{
@@ -164,6 +317,20 @@
 		},
 		{
 			"name": "3.7 insert new country",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -2877,6 +3044,20 @@
 		},
 		{
 			"name": "3.8 update country",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -3173,6 +3354,1007 @@
 			"response": []
 		},
 		{
+			"name": "4.4 admin can list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.5 admin can read",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/read?countryID=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"read"
+					],
+					"query": [
+						{
+							"key": "countryID",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.6 admin can sort",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/sortList?sortBy=vehicleName",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"sortList"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "vehicleName"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.7 admin can insert",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "secureCode",
+							"value": "123.abcd.abcd.1",
+							"type": "text"
+						},
+						{
+							"key": "weaponName",
+							"value": "Test35",
+							"type": "text"
+						},
+						{
+							"key": "battlepoints",
+							"value": "100",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"weapon",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.8 admin can update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "weaponID",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "secureCode",
+							"value": "123.test.test.1",
+							"type": "text"
+						},
+						{
+							"key": "weaponName",
+							"value": "Test",
+							"type": "text"
+						},
+						{
+							"key": "battlepoints",
+							"value": "100",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"weapon",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.9 admin can delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/delete?weaponID=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"weapon",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "weaponID",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.10 logout: admin logout successful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/user/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"user",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.11 Login: user login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "testUser2",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123abc",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.12 user can list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.13 user can read",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/read?countryID=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"read"
+					],
+					"query": [
+						{
+							"key": "countryID",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.14 user can sort",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/sortList?sortBy=vehicleName",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"sortList"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "vehicleName"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.15 user can insert",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(403);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "secureCode",
+							"value": "123.abcd.abcd.1",
+							"type": "text"
+						},
+						{
+							"key": "weaponName",
+							"value": "Test35",
+							"type": "text"
+						},
+						{
+							"key": "battlepoints",
+							"value": "100",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"weapon",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.16 user can update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(403);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "countryID",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "TestCountry2edited",
+							"type": "text"
+						},
+						{
+							"key": "vehicleIDs",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.17 user can delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(403);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/delete?countryID=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "countryID",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.18 logout: user logout successful",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/user/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"user",
+						"logout"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.19 guest can list",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(403);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.20 guest can read",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(403);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/read?countryID=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"read"
+					],
+					"query": [
+						{
+							"key": "countryID",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.21 guest can sort",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(403);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/vehicle/sortList?sortBy=vehicleName",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"vehicle",
+						"sortList"
+					],
+					"query": [
+						{
+							"key": "sortBy",
+							"value": "vehicleName"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.22 guest can insert",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(403);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "secureCode",
+							"value": "123.abcd.abcd.1",
+							"type": "text"
+						},
+						{
+							"key": "weaponName",
+							"value": "Test35",
+							"type": "text"
+						},
+						{
+							"key": "battlepoints",
+							"value": "100",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/weapon/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"weapon",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.23 guest can update",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(403);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "countryID",
+							"value": "3",
+							"type": "text"
+						},
+						{
+							"key": "name",
+							"value": "TestCountry2edited",
+							"type": "text"
+						},
+						{
+							"key": "vehicleIDs",
+							"value": "2",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.24 guest can delete",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(403);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/country/delete?countryID=3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"country",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "countryID",
+							"value": "3"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4.25 Login: admin login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "username",
+							"value": "testUser",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123abc",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:8080/Projekt_M133_Military_ranking-1.0/resource/user/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"Projekt_M133_Military_ranking-1.0",
+						"resource",
+						"user",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
 			"name": "1.8 delete weapon",
 			"event": [
 				{
@@ -3258,6 +4440,20 @@
 		},
 		{
 			"name": "3.9 delete country",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status test\", function(){",
+							"    pm.response.to.have.status(200);",
+							"});",
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
 			"request": {
 				"method": "DELETE",
 				"header": [],

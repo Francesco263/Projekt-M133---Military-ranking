@@ -1,38 +1,6 @@
-[
-    {
-        "weaponName": "AIM-9X",
-        "battlepoints": "150"
-    },
-    {
-        "weaponName": "JDAM",
-        "battlepoints": "90"
-    },
-    {
-        "weaponName": "Rh120",
-        "battlepoints": "200"
-    },
-    {
-        "weaponName": "MG3",
-        "battlepoints": "60"
-    },
-    {
-        "weaponName": "127/64 Lightweight",
-        "battlepoints": "200"
-    },
-    {
-        "weaponName": "RGM-84 Harpoon",
-        "battlepoints": "250"
-    },
-    {
-        "weaponName": "21 RIM-116 RAM",
-        "battlepoints": "350"
-    },
-    {
-        "weaponName": "Revolverkanone MLG 27",
-        "battlepoints": "100"
-    },
-    {
-        "weaponName": "HITROLE NT",
-        "battlepoints": "190"
-    }
-]
+[ {
+  "weaponID" : 1,
+  "secureCode" : "914.ooli.uugh.7",
+  "weaponName" : "AIM19-X",
+  "battlepoints" : 230
+} ]

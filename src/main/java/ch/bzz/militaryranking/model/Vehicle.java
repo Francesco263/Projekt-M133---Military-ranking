@@ -1,18 +1,46 @@
 package ch.bzz.militaryranking.model;
 
+import ch.bzz.militaryranking.data.DataHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
+import javax.validation.constraints.*;
+import javax.ws.rs.FormParam;
 import java.util.Vector;
 
 public class Vehicle {
 
-    private String vehicleName;
-    private int quantity;
-    private int battlepoints;
-
     @JsonIgnore
     private Vector<Weapon> weapons;
 
+    @FormParam("vehicleID")
+    private int vehicleID;
+
+    @FormParam("registrationDate")
+    @NotEmpty
+    @Pattern(regexp = "^\\d{2}\\.\\d{2}\\.\\d{4}$")
+    private String registrationDate;
+
+    @FormParam("vehicleName")
+    @NotEmpty
+    @Size(min=2, max=40)
+    private String vehicleName;
+
+    @FormParam("quantity")
+    @NotNull
+    @Min(1)
+    @Max(50000)
+    private int quantity;
+
+    @FormParam("battlepoints")
+    @NotNull
+    @Min(1)
+    @Max(100000)
+    private int battlepoints;
+
+    @FormParam("weaponIDs")
+    @NotEmpty
+    @Pattern(regexp = "^(\\d+\\s)*(\\d+)$")
+    private String weaponIDs;
 
     /**
      * gets name
@@ -63,7 +91,7 @@ public class Vehicle {
     }
 
     /**
-     * getss weapons
+     * gets weapons
      * @return weapons
      */
     public Vector<Weapon> getWeapons() {
@@ -75,6 +103,65 @@ public class Vehicle {
      * @param weapons
      */
     public void setWeapons(Vector<Weapon> weapons) {
+        for (int i = 0; i < weapons.size(); i++){
+            Weapon weapon = DataHandler.readWeaponByID(Integer.toString(weapons.get(i).getWeaponID()));
+            weapons.get(i).setSecureCode(weapon.getSecureCode());
+            weapons.get(i).setWeaponName(weapon.getWeaponName());
+            weapons.get(i).setBattlepoints(weapon.getBattlepoints());
+            battlepoints = battlepoints + (weapons.get(i).getBattlepoints() * quantity);
+        };
         this.weapons = weapons;
+        DataHandler.updateWeapon();
+        DataHandler.updateVehicle();
+        DataHandler.updateCountry();
+    }
+
+
+    /**
+     * gets vehicleID
+     * @return vehicleID
+     */
+    public int getVehicleID() {
+        return vehicleID;
+    }
+
+    /**
+     * sets vehicleID
+     * @param vehicleID
+     */
+    public void setVehicleID(int vehicleID) {
+        this.vehicleID = vehicleID;
+    }
+
+    /**
+     * gets registration date
+     * @return
+     */
+    public String getRegistrationDate() {
+        return registrationDate;
+    }
+
+    /**
+     * sets registration date
+     * @param registrationDate
+     */
+    public void setRegistrationDate(String registrationDate) {
+        this.registrationDate = registrationDate;
+    }
+
+    /**
+     * gets weaponIDs
+      * @return
+     */
+    public String getWeaponIDs() {
+        return weaponIDs;
+    }
+
+    /**
+     * sets weaponIDs
+     * @param weaponIDs
+     */
+    public void setWeaponIDs(String weaponIDs) {
+        this.weaponIDs = weaponIDs;
     }
 }

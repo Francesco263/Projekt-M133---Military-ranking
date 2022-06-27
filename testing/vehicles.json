@@ -1,38 +1,8 @@
-[
-    {
-        "vehicleName": "F-22 Raptor",
-        "quantity": "15",
-        "battlepoints": "25000",
-        "weapons": [{
-                "weaponName" : "AIM-9X"
-        },  {
-                "weaponName" : "JDAM"
-        }] 
-    },
-    {
-        "vehicleName": "Leopard 2A5",
-        "quantity": "23",
-        "battlepoints": "12000",
-        "weapons": [{
-                "weaponName" : "Rh120"
-        },  {
-                "weaponName" : "MG3"
-        }] 
-    },
-    {
-        "vehicleName": "F222",
-        "quantity": "2",
-        "battlepoints": "55000",
-        "weapons": [{
-                "weaponName" : "127/64 Lightweight"
-        },  {
-                "weaponName" : "RGM-84 Harpoon"
-        },  {
-                "weaponName" : "21 RIM-116 RAM"
-        },  {   
-                "weaponName" : "Revolverkanone MLG 27"
-        },  {   
-                "weaponName" : "HITROLE NT"
-        }] 
-    }
-]
+[ {
+  "vehicleID" : 1,
+  "registrationDate" : "14.07.2004",
+  "vehicleName" : "Hercules C-130",
+  "quantity" : 15,
+  "battlepoints" : 3685,
+  "weaponIDs" : "1"
+} ]

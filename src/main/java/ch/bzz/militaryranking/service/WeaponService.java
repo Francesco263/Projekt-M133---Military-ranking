@@ -3,10 +3,8 @@ package ch.bzz.militaryranking.service;
 import ch.bzz.militaryranking.data.DataHandler;
 import ch.bzz.militaryranking.model.Weapon;
 
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
+import javax.validation.Valid;
+import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.Collections;
@@ -19,7 +17,7 @@ import java.util.List;
 @Path("weapon")
 public class WeaponService {
 
-
+    private static int cntr = DataHandler.getWeaponCount();
     /**
      * lists all weapons from weapons.json
      */
@@ -27,7 +25,7 @@ public class WeaponService {
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
     public Response listWeapon(){
-        List<Weapon> weaponList = DataHandler.getInstance().readAllWeapons();
+        List<Weapon> weaponList = DataHandler.readAllWeapons();
         return Response
                 .status(200)
                 .entity(weaponList)
@@ -35,15 +33,15 @@ public class WeaponService {
     }
 
     /**
-     * lists the corresponding weapon to given name
+     * lists the corresponding weapon to given id
      */
     @GET
     @Path("read")
     @Produces(MediaType.APPLICATION_JSON)
     public Response readWeapon(
-            @QueryParam("weaponName") String weaponName
+            @QueryParam("weaponID") String weaponID
     ){
-        Weapon weapon = DataHandler.getInstance().readWeaponByName(weaponName);
+        Weapon weapon = DataHandler.readWeaponByID(weaponID);
         int httpStatus;
 
         if (weapon == null){
@@ -59,7 +57,7 @@ public class WeaponService {
     }
 
     /**
-     * sorts the weapon list by battlepoints or weaponName
+     * sorts the weapon list by battlePoints or weaponName
      */
     @GET
     @Path("sortList")
@@ -67,7 +65,7 @@ public class WeaponService {
     public Response sortWeapon(
             @QueryParam("sortBy") String sort
     ){
-        List<Weapon> weaponList = DataHandler.getInstance().readAllWeapons();
+        List<Weapon> weaponList = DataHandler.readAllWeapons();
         if(sort != null && sort.equals("battlepoints")){
             Collections.sort(weaponList, new Comparator<Weapon>() {
                 @Override
@@ -98,5 +96,74 @@ public class WeaponService {
         }
     }
 
+    /**
+     * Inserts a new weapon
+     * @param weapon the weapon
+     * @return Response
+     */
+    @POST
+    @Path("create")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response insertWeapon(
+            @Valid @BeanParam Weapon weapon
+    ){
+        weapon.setWeaponID(++cntr);
+        DataHandler.insertWeapon(weapon);
+        return Response
+                .status(200)
+                .entity("")
+                .build();
+    }
+
+    /**
+     * deletes a weapon identified by its id
+     * @param weaponID the id
+     * @return Response
+     */
+    @DELETE
+    @Path("delete")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response deleteWeapon(
+            @QueryParam("weaponID") String weaponID
+    ){
+        int httpStatus = 200;
+        if (!DataHandler.deleteWeapon(weaponID)){
+            httpStatus = 410;
+        }
+        DataHandler.updateVehicle();
+        return Response
+                .status(httpStatus)
+                .entity("")
+                .build();
+    }
+
+    /**
+     * updates a weapon
+     * @param weapon the weapon
+     * @return Response
+     */
+    @POST
+    @Path("update")
+    @Produces(MediaType.TEXT_PLAIN)
+    public Response updateWeapon(
+            @Valid @BeanParam Weapon weapon
+    ){
+        int httpStatus = 200;
+        Weapon oldWeapon = DataHandler.readWeaponByID(Integer.toString(weapon.getWeaponID()));
+        if (oldWeapon != null){
+            oldWeapon.setSecureCode(weapon.getSecureCode());
+            oldWeapon.setWeaponName(weapon.getWeaponName());
+            oldWeapon.setBattlepoints(weapon.getBattlepoints());
+
+            DataHandler.updateWeapon();
+        }
+        else{
+            httpStatus = 404;
+        }
+        return Response
+                .status(httpStatus)
+                .entity("")
+                .build();
+    }
 
 }

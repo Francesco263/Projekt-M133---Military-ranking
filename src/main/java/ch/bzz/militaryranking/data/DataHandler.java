@@ -6,7 +6,6 @@ import ch.bzz.militaryranking.model.Country;
 import ch.bzz.militaryranking.model.Weapon;
 import ch.bzz.militaryranking.service.Config;
 import ch.bzz.militaryranking.util.AESEncrypt;
-import com.fasterxml.jackson.core.JsonToken;
 import com.fasterxml.jackson.core.util.DefaultPrettyPrinter;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.ObjectWriter;

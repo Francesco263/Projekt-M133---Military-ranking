@@ -61,20 +61,23 @@ public class UserService {
     @Path("logout")
     @Produces(MediaType.TEXT_PLAIN)
     public Response logout(){
+        int httpStatus = 404;
         NewCookie cookie = new NewCookie(
                 "userRole",
-                "guest",
+                AESEncrypt.encrypt("guest"),
                 "/",
                 "",
                 "Login-Cookie",
-                1,
+                1 ,
                 false
         );
-        Response response = Response
-                .status(200)
+        if (cookie.getMaxAge() == 1){
+           httpStatus = 200;
+        }
+        return Response
+                .status(httpStatus)
                 .cookie(cookie)
                 .entity("")
                 .build();
-        return response;
     }
 }

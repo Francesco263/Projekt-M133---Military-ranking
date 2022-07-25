@@ -31,6 +31,7 @@ public class Config extends Application {
         providers.add(VehicleService.class);
         providers.add(CountryService.class);
         providers.add(WeaponService.class);
+        providers.add(UserService.class);
         return providers;
     }
     /**

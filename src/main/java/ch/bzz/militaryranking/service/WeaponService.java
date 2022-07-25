@@ -2,7 +2,6 @@ package ch.bzz.militaryranking.service;
 
 import ch.bzz.militaryranking.data.DataHandler;
 import ch.bzz.militaryranking.model.Weapon;
-
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -24,10 +23,20 @@ public class WeaponService {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listWeapon(){
-        List<Weapon> weaponList = DataHandler.readAllWeapons();
+    public Response listWeapon(
+            @CookieParam("userRole") String userRole
+    ){
+        int httpStatus = 200;
+        List<Weapon> weaponList = null;
+
+        if (DataHandler.authenticate(userRole, 2)){
+            weaponList = DataHandler.readAllWeapons();
+        }
+        else{
+            httpStatus = 403;
+        }
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity(weaponList)
                 .build();
     }
@@ -39,17 +48,22 @@ public class WeaponService {
     @Path("read")
     @Produces(MediaType.APPLICATION_JSON)
     public Response readWeapon(
+            @CookieParam("userRole") String userRole,
             @QueryParam("weaponID") String weaponID
     ){
-        Weapon weapon = DataHandler.readWeaponByID(weaponID);
-        int httpStatus;
+        int httpStatus = 200;
+        Weapon weapon = null;
 
-        if (weapon == null){
-            httpStatus = 404;
+        if (DataHandler.authenticate(userRole, 2)){
+            weapon = DataHandler.readWeaponByID(weaponID);
+            if (weapon == null){
+                httpStatus = 404;
+            }
         }
         else{
-            httpStatus = 200;
+            httpStatus = 403;
         }
+
         return Response
                 .status(httpStatus)
                 .entity(weapon)
@@ -63,37 +77,44 @@ public class WeaponService {
     @Path("sortList")
     @Produces(MediaType.APPLICATION_JSON)
     public Response sortWeapon(
+            @CookieParam("userRole") String userRole,
             @QueryParam("sortBy") String sort
     ){
-        List<Weapon> weaponList = DataHandler.readAllWeapons();
-        if(sort != null && sort.equals("battlepoints")){
-            Collections.sort(weaponList, new Comparator<Weapon>() {
-                @Override
-                public int compare(Weapon weapon, Weapon t1) {
-                    return weapon.getBattlepoints()-(t1.getBattlepoints());
-                }
-            });
+        if (DataHandler.authenticate(userRole, 2)){
+            List<Weapon> weaponList = DataHandler.readAllWeapons();
+            if(sort != null && sort.equals("battlepoints")){
+                Collections.sort(weaponList, new Comparator<Weapon>() {
+                    @Override
+                    public int compare(Weapon weapon, Weapon t1) {
+                        return weapon.getBattlepoints()-(t1.getBattlepoints());
+                    }
+                });
+            }
+            else if (sort!= null && sort.equals("weaponName")){
+                Collections.sort(weaponList, new Comparator<Weapon>() {
+                    @Override
+                    public int compare(Weapon weapon, Weapon t1) {
+                        return weapon.getWeaponName().compareTo(t1.getWeaponName());
+                    }
+                });
+            }
+            if (sort.contains("weaponName") || sort.contains("battlepoints")){
+                return Response
+                        .status(200)
+                        .entity(weaponList)
+                        .build();
+            }
+            else{
+                return Response
+                        .status(404)
+                        .entity(null)
+                        .build();
+            }
         }
-        else if (sort!= null && sort.equals("weaponName")){
-            Collections.sort(weaponList, new Comparator<Weapon>() {
-                @Override
-                public int compare(Weapon weapon, Weapon t1) {
-                    return weapon.getWeaponName().compareTo(t1.getWeaponName());
-                }
-            });
-        }
-        if (sort.contains("weaponName") || sort.contains("battlepoints")){
-            return Response
-                    .status(200)
-                    .entity(weaponList)
-                    .build();
-        }
-        else{
-            return Response
-                    .status(404)
-                    .entity(null)
-                    .build();
-        }
+        return Response
+                .status(403)
+                .entity("")
+                .build();
     }
 
     /**
@@ -105,12 +126,19 @@ public class WeaponService {
     @Path("create")
     @Produces(MediaType.TEXT_PLAIN)
     public Response insertWeapon(
+            @CookieParam("userRole") String userRole,
             @Valid @BeanParam Weapon weapon
     ){
-        weapon.setWeaponID(++cntr);
-        DataHandler.insertWeapon(weapon);
+        int httpStatus = 200;
+        if (DataHandler.authenticate(userRole, 1)){
+            weapon.setWeaponID(++cntr);
+            DataHandler.insertWeapon(weapon);
+        }
+        else{
+            httpStatus = 403;
+        }
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity("")
                 .build();
     }
@@ -124,13 +152,19 @@ public class WeaponService {
     @Path("delete")
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteWeapon(
+            @CookieParam("userRole") String userRole,
             @QueryParam("weaponID") String weaponID
     ){
         int httpStatus = 200;
-        if (!DataHandler.deleteWeapon(weaponID)){
-            httpStatus = 410;
+        if (DataHandler.authenticate(userRole, 1)){
+            if (!DataHandler.deleteWeapon(weaponID)){
+                httpStatus = 410;
+            }
+            DataHandler.updateVehicle();
         }
-        DataHandler.updateVehicle();
+        else{
+            httpStatus = 403;
+        }
         return Response
                 .status(httpStatus)
                 .entity("")
@@ -146,19 +180,25 @@ public class WeaponService {
     @Path("update")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateWeapon(
+            @CookieParam("userRole") String userRole,
             @Valid @BeanParam Weapon weapon
     ){
         int httpStatus = 200;
-        Weapon oldWeapon = DataHandler.readWeaponByID(Integer.toString(weapon.getWeaponID()));
-        if (oldWeapon != null){
-            oldWeapon.setSecureCode(weapon.getSecureCode());
-            oldWeapon.setWeaponName(weapon.getWeaponName());
-            oldWeapon.setBattlepoints(weapon.getBattlepoints());
+        if (DataHandler.authenticate(userRole, 1)){
+            Weapon oldWeapon = DataHandler.readWeaponByID(Integer.toString(weapon.getWeaponID()));
+            if (oldWeapon != null){
+                oldWeapon.setSecureCode(weapon.getSecureCode());
+                oldWeapon.setWeaponName(weapon.getWeaponName());
+                oldWeapon.setBattlepoints(weapon.getBattlepoints());
 
-            DataHandler.updateWeapon();
+                DataHandler.updateWeapon();
+            }
+            else{
+                httpStatus = 404;
+            }
         }
         else{
-            httpStatus = 404;
+            httpStatus = 403;
         }
         return Response
                 .status(httpStatus)

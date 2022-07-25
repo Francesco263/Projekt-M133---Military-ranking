@@ -2,7 +2,6 @@ package ch.bzz.militaryranking.model;
 
 import ch.bzz.militaryranking.data.DataHandler;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.validation.constraints.*;
 import javax.ws.rs.FormParam;
 import java.util.Vector;

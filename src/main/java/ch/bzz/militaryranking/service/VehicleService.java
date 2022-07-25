@@ -1,15 +1,12 @@
 package ch.bzz.militaryranking.service;
 
 import ch.bzz.militaryranking.data.DataHandler;
-import ch.bzz.militaryranking.model.Country;
 import ch.bzz.militaryranking.model.Vehicle;
 import ch.bzz.militaryranking.model.Weapon;
-
 import javax.validation.Valid;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.xml.crypto.Data;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -28,10 +25,20 @@ public class VehicleService {
     @GET
     @Path("list")
     @Produces(MediaType.APPLICATION_JSON)
-    public Response listVehicle(){
-        List<Vehicle> vehicleList = DataHandler.readAllVehicles();
+    public Response listVehicle(
+            @CookieParam("userRole") String userRole
+    ){
+        int httpStatus = 200;
+        List<Vehicle> vehicleList = null;
+        if (DataHandler.authenticate(userRole, 2)){
+            vehicleList = DataHandler.readAllVehicles();
+        }
+        else {
+            httpStatus = 403;
+        }
+
         return Response
-                .status(200)
+                .status(httpStatus)
                 .entity(vehicleList)
                 .build();
     }
@@ -43,16 +50,21 @@ public class VehicleService {
     @Path("read")
     @Produces(MediaType.APPLICATION_JSON)
     public Response readVehicle(
+            @CookieParam("userRole") String userRole,
             @QueryParam("vehicleID") String vehicleID
     ){
-        Vehicle vehicle = DataHandler.readVehicleByID(vehicleID);
-        int httpStatus;
-        if (vehicle == null){
-            httpStatus = 404;
+        int httpStatus = 200;
+        Vehicle vehicle = null;
+        if (DataHandler.authenticate(userRole, 2)){
+            vehicle = DataHandler.readVehicleByID(vehicleID);
+            if (vehicle == null){
+                httpStatus = 404;
+            }
         }
         else{
-            httpStatus = 200;
+            httpStatus = 403;
         }
+
         return Response
                 .status(httpStatus)
                 .entity(vehicle)
@@ -66,45 +78,52 @@ public class VehicleService {
     @Path("sortList")
     @Produces(MediaType.APPLICATION_JSON)
     public Response sortWeapon(
+            @CookieParam("userRole") String userRole,
             @QueryParam("sortBy") String sort
     ){
-        List<Vehicle> vehicleList = DataHandler.readAllVehicles();
-        if(sort != null && sort.equals("vehicleName")){
-            Collections.sort(vehicleList, new Comparator<Vehicle>() {
-                @Override
-                public int compare(Vehicle vehicle, Vehicle t1) {
-                    return vehicle.getVehicleName().compareTo(t1.getVehicleName());
-                }
-            });
+        if (DataHandler.authenticate(userRole, 2)){
+            List<Vehicle> vehicleList = DataHandler.readAllVehicles();
+            if(sort != null && sort.equals("vehicleName")){
+                Collections.sort(vehicleList, new Comparator<Vehicle>() {
+                    @Override
+                    public int compare(Vehicle vehicle, Vehicle t1) {
+                        return vehicle.getVehicleName().compareTo(t1.getVehicleName());
+                    }
+                });
+            }
+            else if (sort!= null && sort.equals("battlepoints")){
+                Collections.sort(vehicleList, new Comparator<Vehicle>() {
+                    @Override
+                    public int compare(Vehicle vehicle, Vehicle t1) {
+                        return vehicle.getBattlepoints()-(t1.getBattlepoints());
+                    }
+                });
+            }
+            else if (sort!= null && sort.equals("quantity")){
+                Collections.sort(vehicleList, new Comparator<Vehicle>() {
+                    @Override
+                    public int compare(Vehicle vehicle, Vehicle t1) {
+                        return vehicle.getQuantity()-(t1.getQuantity());
+                    }
+                });
+            }
+            if (sort.contains("vehicleName") || sort.contains("battlepoints") || sort.contains("quantity")){
+                return Response
+                        .status(200)
+                        .entity(vehicleList)
+                        .build();
+            }
+            else{
+                return Response
+                        .status(404)
+                        .entity(null)
+                        .build();
+            }
         }
-        else if (sort!= null && sort.equals("battlepoints")){
-            Collections.sort(vehicleList, new Comparator<Vehicle>() {
-                @Override
-                public int compare(Vehicle vehicle, Vehicle t1) {
-                    return vehicle.getBattlepoints()-(t1.getBattlepoints());
-                }
-            });
-        }
-        else if (sort!= null && sort.equals("quantity")){
-            Collections.sort(vehicleList, new Comparator<Vehicle>() {
-                @Override
-                public int compare(Vehicle vehicle, Vehicle t1) {
-                    return vehicle.getQuantity()-(t1.getQuantity());
-                }
-            });
-        }
-        if (sort.contains("vehicleName") || sort.contains("battlepoints") || sort.contains("quantity")){
-            return Response
-                    .status(200)
-                    .entity(vehicleList)
-                    .build();
-        }
-        else{
-            return Response
-                    .status(404)
-                    .entity(null)
-                    .build();
-        }
+        return Response
+                .status(403)
+                .entity("")
+                .build();
     }
 
     /**
@@ -116,16 +135,22 @@ public class VehicleService {
     @Path("create")
     @Produces(MediaType.TEXT_PLAIN)
     public Response insertVehicle(
+            @CookieParam("userRole") String userRole,
             @Valid @BeanParam Vehicle vehicle
     ){
-        vehicle.setVehicleID(++cntr);
         int httpStatus = 200;
-        if (getWeaponsFromID(vehicle) != null){
-            vehicle.setWeapons(getWeaponsFromID(vehicle));
-            DataHandler.insertVehicle(vehicle);
+        if (DataHandler.authenticate(userRole, 1)){
+            vehicle.setVehicleID(++cntr);
+            if (getWeaponsFromID(vehicle) != null){
+                vehicle.setWeapons(getWeaponsFromID(vehicle));
+                DataHandler.insertVehicle(vehicle);
+            }
+            else{
+                httpStatus = 400;
+            }
         }
         else{
-            httpStatus = 400;
+            httpStatus = 403;
         }
 
         return Response
@@ -143,13 +168,19 @@ public class VehicleService {
     @Path("delete")
     @Produces(MediaType.TEXT_PLAIN)
     public Response deleteVehicle(
+            @CookieParam("userRole") String userRole,
             @QueryParam("vehicleID") String vehicleID
     ){
         int httpStatus = 200;
-        if (!DataHandler.deleteVehicle(vehicleID)){
-            httpStatus = 410;
+        if (DataHandler.authenticate(userRole, 1)){
+            if (!DataHandler.deleteVehicle(vehicleID)){
+                httpStatus = 410;
+            }
+            DataHandler.updateCountry();
         }
-        DataHandler.updateCountry();
+        else{
+            httpStatus = 403;
+        }
         return Response
                 .status(httpStatus)
                 .entity("")
@@ -165,23 +196,29 @@ public class VehicleService {
     @Path("update")
     @Produces(MediaType.TEXT_PLAIN)
     public Response updateVehicle(
+            @CookieParam("userRole") String userRole,
             @Valid @BeanParam Vehicle vehicle
     ){
         int httpStatus = 200;
-        Vehicle oldVehicle = DataHandler.readVehicleByID(Integer.toString(vehicle.getVehicleID()));
-        if (oldVehicle != null && getWeaponsFromID(vehicle) != null){
-            oldVehicle.setVehicleName(vehicle.getVehicleName());
-            oldVehicle.setQuantity(vehicle.getQuantity());
-            oldVehicle.setBattlepoints(vehicle.getBattlepoints());
-            oldVehicle.setRegistrationDate(vehicle.getRegistrationDate());
-            oldVehicle.setWeapons(getWeaponsFromID(vehicle));
-            DataHandler.updateVehicle();
-        }
-        else if (oldVehicle == null){
-            httpStatus = 404;
+        if (DataHandler.authenticate(userRole, 1)){
+            Vehicle oldVehicle = DataHandler.readVehicleByID(Integer.toString(vehicle.getVehicleID()));
+            if (oldVehicle != null && getWeaponsFromID(vehicle) != null){
+                oldVehicle.setVehicleName(vehicle.getVehicleName());
+                oldVehicle.setQuantity(vehicle.getQuantity());
+                oldVehicle.setBattlepoints(vehicle.getBattlepoints());
+                oldVehicle.setRegistrationDate(vehicle.getRegistrationDate());
+                oldVehicle.setWeapons(getWeaponsFromID(vehicle));
+                DataHandler.updateVehicle();
+            }
+            else if (oldVehicle == null){
+                httpStatus = 404;
+            }
+            else{
+                httpStatus = 400;
+            }
         }
         else{
-            httpStatus = 400;
+            httpStatus = 403;
         }
         return Response
                 .status(httpStatus)

@@ -1,5 +1,4 @@
 package ch.bzz.militaryranking.model;
-
 import javax.validation.constraints.*;
 import javax.ws.rs.FormParam;
 
